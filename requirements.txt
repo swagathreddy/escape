@@ -20,7 +20,7 @@ jsonschema==4.23.0
 jsonschema-specifications==2023.12.1
 
 openai==1.58.1
-
+python-dotenv
 pillow==10.4.0
 
 
