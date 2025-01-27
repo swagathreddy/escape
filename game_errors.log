@@ -1,0 +1,626 @@
+2025-01-24 06:02:25,463 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 06:02:31,947 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 06:21:10,159 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 06:30:32,860 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 06:30:52,353 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 06:46:52,826 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 06:55:04,724 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 06:57:00,662 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 06:57:36,102 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 06:59:41,243 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 07:02:13,633 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 07:02:18,871 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 07:02:28,792 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 07:12:04,351 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 07:12:09,586 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 07:12:23,050 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 07:12:29,335 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-24 07:55:34,621 - WARNING: Not Found: /favicon.ico
+2025-01-24 07:57:34,797 - INFO: C:\djangowebprojects\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 18:16:14,228 - WARNING: Not Found: /favicon.ico
+2025-01-25 19:04:39,578 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:05:18,960 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:06:01,169 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:08:45,898 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:09:06,717 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:10:22,540 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:10:34,439 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:11:42,397 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:12:22,792 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:12:57,333 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:13:55,808 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:14:36,025 - INFO: C:\Users\aniru\OneDrive\Desktop\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 19:22:49,773 - WARNING: Not Found: /favicon.ico
+2025-01-25 19:45:12,797 - WARNING: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /chatbot/
+Traceback (most recent call last):
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\backends\db.py", line 127, in save
+    obj.save(
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\db\models\base.py", line 891, in save
+    self.save_base(
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\db\models\base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\db\models\base.py", line 1133, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\backends\db.py", line 136, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-01-25 19:49:44,623 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:02:30,038 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:02:54,653 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:03:18,727 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:03:48,657 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:05:51,939 - WARNING: Not Found: /favicon.ico
+2025-01-25 20:06:54,931 - WARNING: Not Found: /favicon.ico
+2025-01-25 20:17:35,466 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:18:06,523 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:18:10,376 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:19:56,189 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:24:59,780 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:25:20,985 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:25:43,394 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:26:14,001 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:26:17,784 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:26:22,481 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:26:26,209 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:26:36,465 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:46:11,281 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:46:15,462 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:46:25,841 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:46:30,901 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:48:06,219 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:48:16,714 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 20:51:48,923 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:00:18,794 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:00:27,345 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:09:23,747 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:11:01,234 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:11:39,433 - WARNING: Not Found: /favicon.ico
+2025-01-25 21:13:15,299 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:14:51,830 - WARNING: Not Found: /favicon.ico
+2025-01-25 21:17:28,763 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:19:23,012 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:21:49,641 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-25 21:22:41,611 - WARNING: Not Found: /favicon.ico
+2025-01-25 21:23:00,751 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:23:06,749 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:24:54,309 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:25:02,082 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:25:09,085 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:25:37,362 - WARNING: Not Found: /favicon.ico
+2025-01-25 21:26:20,935 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:28:28,412 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:29:25,997 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:29:33,912 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:29:57,797 - WARNING: Not Found: /favicon.ico
+2025-01-25 21:34:50,962 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-25 21:45:38,679 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-25 21:48:21,291 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-25 21:49:15,174 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:50:39,570 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-25 21:50:42,325 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-25 21:50:46,065 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-25 21:55:08,773 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:55:19,916 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:55:32,888 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:55:35,753 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:55:54,910 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:56:06,979 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:56:22,053 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:56:27,008 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:56:41,478 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:56:52,725 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:58:54,014 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:58:57,933 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-25 21:59:00,560 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 08:35:43,481 - WARNING: Not Found: /favicon.ico
+2025-01-26 08:37:48,446 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 09:08:18,139 - WARNING: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /chatbot/
+Traceback (most recent call last):
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\backends\db.py", line 127, in save
+    obj.save(
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\db\models\base.py", line 891, in save
+    self.save_base(
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\db\models\base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\db\models\base.py", line 1133, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\backends\db.py", line 136, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-01-26 11:35:48,034 - ERROR: Game error: name 'pipe' is not defined
+2025-01-26 11:35:48,044 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 305, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 401, in interact_with_element
+    image_base64 = self.generate_element_image(original_element)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 378, in generate_element_image
+    image = pipe(prompt).images[0]  # Generate the image
+            ^^^^
+NameError: name 'pipe' is not defined
+
+2025-01-26 11:39:59,827 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 11:40:33,720 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 11:40:57,097 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 11:44:18,711 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 11:44:42,177 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 11:48:39,149 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 11:49:08,942 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 11:53:00,186 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 11:53:31,666 - ERROR: Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py", line 65, in index
+    view = EscapeRoomView(request.session)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py", line 28, in __init__
+    self.puzzle_logic = PuzzleLogic()
+                        ^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 40, in __init__
+    PuzzleLogic._pipe = StableDiffusionMixin.from_pretrained(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'StableDiffusionMixin' has no attribute 'from_pretrained'
+2025-01-26 11:55:09,397 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 11:55:28,961 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:17:47,651 - WARNING: Not Found: /favicon.ico
+2025-01-26 13:20:09,127 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:32:27,495 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 13:34:29,551 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:37:13,150 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:37:32,590 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:40:30,470 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:40:38,715 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:40:56,577 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:41:09,657 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:41:26,910 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\escaperoom\settings.py changed, reloading.
+2025-01-26 13:43:58,977 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:44:29,082 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:44:36,051 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\escaperoom\settings.py changed, reloading.
+2025-01-26 13:50:46,151 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:50:59,778 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:51:23,130 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:55:50,555 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:56:17,294 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:56:23,106 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 13:58:55,480 - ERROR: Image generation error: 400, {"id":"1665ab930499321a27edfa6e19a090b8","message":"for stable-diffusion-xl-1024-v0-9 and stable-diffusion-xl-1024-v1-0 the allowed dimensions are 1024x1024, 1152x896, 1216x832, 1344x768, 1536x640, 640x1536, 768x1344, 832x1216, 896x1152, but we received 512x512","name":"invalid_sdxl_v1_dimensions"}
+
+2025-01-26 13:59:38,992 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:00:15,749 - ERROR: Image generation error: 400, {"id":"10ea59e214393b0be70f5f42f40fdf83","message":"for stable-diffusion-xl-1024-v0-9 and stable-diffusion-xl-1024-v1-0 the allowed dimensions are 1024x1024, 1152x896, 1216x832, 1344x768, 1536x640, 640x1536, 768x1344, 832x1216, 896x1152, but we received 512x512","name":"invalid_sdxl_v1_dimensions"}
+
+2025-01-26 14:02:23,300 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:02:57,784 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 14:03:46,608 - ERROR: Image generation error: 400, {"id":"96ccf4103e27db6cc275787973ba8c3d","message":"for stable-diffusion-xl-1024-v0-9 and stable-diffusion-xl-1024-v1-0 the allowed dimensions are 1024x1024, 1152x896, 1216x832, 1344x768, 1536x640, 640x1536, 768x1344, 832x1216, 896x1152, but we received 512x512","name":"invalid_sdxl_v1_dimensions"}
+
+2025-01-26 14:05:03,724 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:05:08,191 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:05:22,506 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:05:34,294 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:06:53,395 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:08:18,166 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:08:23,294 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:08:30,244 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:08:36,666 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:09:12,890 - ERROR: Game error: PuzzleLogic.generate_element_image() takes 1 positional argument but 2 were given
+2025-01-26 14:09:12,891 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 310, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 430, in interact_with_element
+    image_base64 = self.generate_element_image(original_element)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PuzzleLogic.generate_element_image() takes 1 positional argument but 2 were given
+
+2025-01-26 14:09:53,236 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:10:02,912 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:10:42,226 - ERROR: Image generation error: 400
+2025-01-26 14:40:14,189 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 14:40:22,115 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 14:40:28,258 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 14:40:41,765 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 14:43:02,273 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:44:14,566 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:44:21,903 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 14:44:28,083 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 14:47:54,338 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:48:47,606 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 14:48:58,404 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:49:19,791 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:49:54,337 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:53:41,918 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:54:26,438 - ERROR: Game error: 'PuzzleLogic' object has no attribute 'generate_element_image'
+2025-01-26 14:54:26,497 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 312, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 400, in interact_with_element
+    image_bytes = self.generate_element_image(original_element)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PuzzleLogic' object has no attribute 'generate_element_image'
+
+2025-01-26 14:55:03,231 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:56:52,002 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:56:56,660 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:58:55,758 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 14:59:25,641 - ERROR: Game error: 'PuzzleLogic' object has no attribute 'generate_element_image'
+2025-01-26 14:59:25,693 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 312, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 400, in interact_with_element
+    image_bytes = self.generate_element_image(original_element)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PuzzleLogic' object has no attribute 'generate_element_image'
+
+2025-01-26 14:59:55,943 - ERROR: Game error: 'PuzzleLogic' object has no attribute 'generate_element_image'
+2025-01-26 14:59:55,950 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 312, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 400, in interact_with_element
+    image_bytes = self.generate_element_image(original_element)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PuzzleLogic' object has no attribute 'generate_element_image'
+
+2025-01-26 15:00:23,691 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:00:36,336 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:01:27,914 - ERROR: Image generation error: {"id":"1017b22fe555361f4643e3067b0aa1df","message":"height and width must be specified in increments of 64","name":"invalid_height_or_width"}
+
+2025-01-26 15:01:27,914 - ERROR: Image generation exception: name 'io' is not defined
+2025-01-26 15:01:27,914 - ERROR: Game error: name 'io' is not defined
+2025-01-26 15:01:27,923 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 459, in generate_element_image
+    byte_arr = io.BytesIO()
+               ^^
+NameError: name 'io' is not defined. Did you mean: 'self.io'? Or did you forget to import 'io'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 312, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 400, in interact_with_element
+    image_bytes = self.generate_element_image(original_element)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 467, in generate_element_image
+    byte_arr = io.BytesIO()
+               ^^
+NameError: name 'io' is not defined. Did you mean: 'self.io'? Or did you forget to import 'io'
+
+2025-01-26 15:02:05,518 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:02:11,106 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:02:31,614 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:02:40,457 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:02:45,208 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:02:50,130 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:03:29,255 - ERROR: Image generation error: {"id":"0f8c634bb80f60f37e1d92399aa08c54","message":"height and width must be specified in increments of 64","name":"invalid_height_or_width"}
+
+2025-01-26 15:04:03,869 - ERROR: Image generation error: {"id":"c16652e059462d35f10bdf6a9d12894a","message":"height and width must be specified in increments of 64","name":"invalid_height_or_width"}
+
+2025-01-26 15:05:25,411 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:06:00,504 - ERROR: Image generation error: {"id":"023e0e8909d21cc7a1ff1117aab98c62","message":"height and width must be specified in increments of 64","name":"invalid_height_or_width"}
+
+2025-01-26 15:06:00,506 - ERROR: Image generation exception: Failed to generate image
+2025-01-26 15:13:34,671 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:13:39,465 - ERROR: Image generation error: {"id":"b04ef5dfdd24aade52168b840a4afc50","message":"height and width must be specified in increments of 64","name":"invalid_height_or_width"}
+
+2025-01-26 15:13:39,465 - ERROR: Image generation exception: Failed to generate image
+2025-01-26 15:13:48,371 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:14:58,152 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:15:02,599 - ERROR: Image generation error: {"id":"34141c1e885b4801f4adbeee77b8524e","message":"height and width must be specified in increments of 64","name":"invalid_height_or_width"}
+
+2025-01-26 15:15:02,613 - ERROR: Image generation exception: Failed to generate image
+2025-01-26 15:16:03,029 - ERROR: Game error: PuzzleLogic.generate_element_image() takes 1 positional argument but 2 were given
+2025-01-26 15:16:03,031 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 402, in interact_with_element
+    image_bytes = self.generate_element_image(original_element)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PuzzleLogic.generate_element_image() takes 1 positional argument but 2 were given
+
+2025-01-26 15:16:30,826 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:16:43,503 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:17:27,418 - ERROR: Image generation error: {"id":"6c46503d10e2a626aeaed011b9e562b8","message":"height and width must be specified in increments of 64","name":"invalid_height_or_width"}
+
+2025-01-26 15:17:27,418 - ERROR: Image generation exception: Failed to generate image
+2025-01-26 15:17:45,162 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:18:51,072 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:19:24,040 - ERROR: Image generation error: {"id":"863b739bfc02a5ea53937118a87a0c16","message":"height and width must be specified in increments of 64","name":"invalid_height_or_width"}
+
+2025-01-26 15:19:24,040 - ERROR: Game error: Failed to generate image
+2025-01-26 15:19:24,046 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 402, in interact_with_element
+    image_bytes = self.generate_element_image(original_element)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 453, in generate_element_image
+    raise Exception("Failed to generate image")
+Exception: Failed to generate image
+
+2025-01-26 15:19:53,766 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:20:07,917 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:21:03,106 - ERROR: Game error: a bytes-like object is required, not 'PngImageFile'
+2025-01-26 15:21:03,122 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 406, in interact_with_element
+    "image": base64.b64encode(image_bytes).decode('utf-8')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2288.0_x64__qbz5n2kfra8p0\Lib\base64.py", line 58, in b64encode
+    encoded = binascii.b2a_base64(s, newline=False)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: a bytes-like object is required, not 'PngImageFile'
+
+2025-01-26 15:22:13,740 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:23:03,350 - ERROR: Game error: a bytes-like object is required, not '_io.BytesIO'
+2025-01-26 15:23:03,350 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 406, in interact_with_element
+    "image": base64.b64encode(image_bytes).decode('utf-8')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2288.0_x64__qbz5n2kfra8p0\Lib\base64.py", line 58, in b64encode
+    encoded = binascii.b2a_base64(s, newline=False)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: a bytes-like object is required, not '_io.BytesIO'
+
+2025-01-26 15:23:58,577 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:25:08,496 - ERROR: Game error: name 'image' is not defined
+2025-01-26 15:25:08,512 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 402, in interact_with_element
+    image_bytes = self.generate_element_image(original_element)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 446, in generate_element_image
+    return image_data
+           ^^^^^
+NameError: name 'image' is not defined. Did you mean: 'Image'?
+
+2025-01-26 15:27:09,395 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:34:28,913 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:34:59,399 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:35:12,981 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:35:22,620 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:35:28,748 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:35:49,073 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:35:59,663 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:36:13,948 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:36:49,893 - ERROR: Game error: PuzzleLogic.generate_element_image() missing 1 required positional argument: 'select_theme'
+2025-01-26 15:36:49,898 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 402, in interact_with_element
+    image_bytes = self.generate_element_image(original_element)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: PuzzleLogic.generate_element_image() missing 1 required positional argument: 'select_theme'
+
+2025-01-26 15:39:37,685 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:39:47,690 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:39:53,923 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:40:00,146 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:40:12,790 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:54:00,739 - WARNING: Not Found: /favicon.ico
+2025-01-26 15:56:36,718 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 15:59:44,173 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:00:41,312 - ERROR: Image generation error: {"id":"3a7f0518a5748defb0bfae8c93b139ea","message":"Your organization does not have enough balance to request this action (need $0.009, have $0.007 in active grants, $0 in balance).","name":"insufficient_balance"}
+
+2025-01-26 16:00:41,321 - ERROR: Game error: Failed to generate image
+2025-01-26 16:00:41,324 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 402, in interact_with_element
+    image_bytes = self.generate_element_image(original_element,theme)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 447, in generate_element_image
+    raise Exception("Failed to generate image")
+Exception: Failed to generate image
+
+2025-01-26 16:00:58,314 - ERROR: Image generation error: {"id":"ffba23a4955f95df0509bd25fab036f2","message":"Your organization does not have enough balance to request this action (need $0.009, have $0.007 in active grants, $0 in balance).","name":"insufficient_balance"}
+
+2025-01-26 16:00:58,314 - ERROR: Game error: Failed to generate image
+2025-01-26 16:00:58,314 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 402, in interact_with_element
+    image_bytes = self.generate_element_image(original_element,theme)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 447, in generate_element_image
+    raise Exception("Failed to generate image")
+Exception: Failed to generate image
+
+2025-01-26 16:01:06,087 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:01:14,177 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:02:44,906 - ERROR: Game error: name 'th' is not defined
+2025-01-26 16:02:44,955 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 402, in interact_with_element
+    image_bytes = self.generate_element_image(original_element,theme)
+                                                               ^^
+NameError: name 'th' is not defined
+
+2025-01-26 16:02:58,421 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:04:57,113 - ERROR: Image generation error: {"id":"ec8dd09899f6423919b76cc53b2b6d4a","message":"Your organization does not have enough balance to request this action (need $0.009, have $0.007 in active grants, $0 in balance).","name":"insufficient_balance"}
+
+2025-01-26 16:04:57,113 - ERROR: Game error: Failed to generate image
+2025-01-26 16:04:57,130 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 402, in interact_with_element
+    image_bytes = self.generate_element_image(original_element,theme)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 447, in generate_element_image
+    raise Exception("Failed to generate image")
+Exception: Failed to generate image
+
+2025-01-26 16:05:35,888 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:05:49,576 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:05:58,656 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:22:05,004 - ERROR: Image generation error: {"id":"b76c959db5712d4e8f5b49a7581a3d25","message":"Your organization does not have enough balance to request this action (need $0.009, have $0.007 in active grants, $0 in balance).","name":"insufficient_balance"}
+
+2025-01-26 16:22:05,012 - ERROR: Game error: Failed to generate image
+2025-01-26 16:22:05,013 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 402, in interact_with_element
+    image_bytes = self.generate_element_image(original_element)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 447, in generate_element_image
+    raise Exception("Failed to generate image")
+Exception: Failed to generate image
+
+2025-01-26 16:23:01,552 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 16:23:08,048 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 16:23:14,025 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 16:28:20,799 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:32:02,703 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:32:12,760 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:32:24,222 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:33:19,524 - ERROR: Game error: 'PuzzleLogic' object has no attribute 'generate_element_image'
+2025-01-26 16:33:19,524 - ERROR: Traceback (most recent call last):
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 314, in play_game
+    return True, self.interact_with_element(user_input)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py", line 402, in interact_with_element
+    image_bytes = self.generate_element_image(original_element)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PuzzleLogic' object has no attribute 'generate_element_image'. Did you mean: 'generate_element_svgs'?
+
+2025-01-26 16:35:04,984 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 16:35:25,957 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 18:42:02,251 - WARNING: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.: /chatbot/
+Traceback (most recent call last):
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\backends\db.py", line 127, in save
+    obj.save(
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\db\models\base.py", line 891, in save
+    self.save_base(
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\db\models\base.py", line 997, in save_base
+    updated = self._save_table(
+              ^^^^^^^^^^^^^^^^^
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\db\models\base.py", line 1133, in _save_table
+    raise DatabaseError("Forced update did not affect any rows.")
+django.db.utils.DatabaseError: Forced update did not affect any rows.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\middleware.py", line 59, in process_response
+    request.session.save()
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\backends\db.py", line 136, in save
+    raise UpdateError
+django.contrib.sessions.backends.base.UpdateError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\utils\deprecation.py", line 131, in __call__
+    response = self.process_response(request, response)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\swaga\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\django\contrib\sessions\middleware.py", line 61, in process_response
+    raise SessionInterrupted(
+django.contrib.sessions.exceptions.SessionInterrupted: The request's session was deleted before the request completed. The user may have logged out in a concurrent request, for example.
+2025-01-26 20:26:32,918 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 20:31:32,082 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 20:31:41,179 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 20:31:56,017 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 20:35:59,693 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:05:26,708 - WARNING: Not Found: /favicon.ico
+2025-01-26 21:09:11,067 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 21:09:20,674 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 21:09:30,325 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 21:10:30,635 - WARNING: Not Found: /favicon.ico
+2025-01-26 21:12:53,856 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:13:34,573 - WARNING: Not Found: /favicon.ico
+2025-01-26 21:17:03,554 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 21:29:05,063 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 21:35:53,945 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:37:46,606 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:39:27,698 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:52:23,378 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:52:51,206 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:52:55,341 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:52:59,517 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:53:12,482 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:54:48,232 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:57:36,628 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:57:56,808 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:58:03,293 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 21:58:09,210 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 22:01:20,510 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 22:02:41,179 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 22:07:20,087 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 22:07:28,959 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 22:10:00,657 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 23:09:10,852 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 23:11:13,453 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 23:12:30,122 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 23:15:38,462 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 23:15:46,084 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\logic.py changed, reloading.
+2025-01-26 23:15:56,622 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 23:33:51,372 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\views.py changed, reloading.
+2025-01-26 23:34:18,155 - INFO: C:\djangowebprojects\escaperoomupdate1\escaperoomupdate\escaperoomupdate\escaperoom\chatbot\urls.py changed, reloading.
