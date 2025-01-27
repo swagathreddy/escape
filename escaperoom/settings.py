@@ -27,6 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['escape-production.up.railway.app']
 
+CORS_ALLOWED_ORIGINS = [
+    'https://escape-production.up.railway.app',
+]
+
+# Also consider adding:
+CSRF_TRUSTED_ORIGINS = [
+    'https://escape-production.up.railway.app',
+]
 
 # Application definition
 
