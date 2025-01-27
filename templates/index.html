@@ -413,46 +413,11 @@
     </div>
 
     <script>
+        
         let lives = 3;
         let interactiveElements = [];
-        let currentScore = 0;
-        let sessionId = '';
 
-        // Generate a unique session ID when the page loads
-        function generateSessionId() {
-            const timestamp = new Date().getTime();
-            const random = Math.random().toString(36).substring(2, 15);
-            return `${timestamp}-${random}`;
-        }
-
-        // Initialize session when page loads
-        function initializeSession() {
-            // Try to get existing session ID from localStorage
-            sessionId = localStorage.getItem('gameSessionId');
-            
-            // If no session exists, create a new one
-            if (!sessionId) {
-                sessionId = generateSessionId();
-                localStorage.setItem('gameSessionId', sessionId);
-                
-                // Initialize game state for new session
-                localStorage.setItem(`${sessionId}_score`, '0');
-                localStorage.setItem(`${sessionId}_lives`, '3');
-                localStorage.setItem(`${sessionId}_solved_puzzles`, JSON.stringify([]));
-            }
-
-            // Load saved game state
-            currentScore = parseInt(localStorage.getItem(`${sessionId}_score`) || '0');
-            lives = parseInt(localStorage.getItem(`${sessionId}_lives`) || '3');
-            
-            // Update UI with saved state
-            document.getElementById('scoreDisplay').textContent = `Score: ${currentScore}`;
-            document.getElementById('lives').textContent = `Lives: ${lives}`;
-        }
-
-        // Call initialization when page loads
-        window.onload = initializeSession;
-
+        // Add a new function to handle scrolling
         function scrollToBottom() {
             const chat = document.getElementById('chat');
             chat.scrollTop = chat.scrollHeight;
@@ -464,24 +429,22 @@
 
             const chat = document.getElementById('chat');
 
-            // Add user message
+            // Add the user's message to the chat
             const userMessage = document.createElement('div');
             userMessage.className = "message user-message";
             userMessage.textContent = "You: " + userInput;
             chat.appendChild(userMessage);
-            scrollToBottom();
+            scrollToBottom(); // Scroll after user message
 
             let loadingMessage = null;
+
             if (interactiveElements.includes(userInput.toLowerCase())) {
                 loadingMessage = document.createElement('div');
                 loadingMessage.className = "message bot-message";
                 loadingMessage.textContent = "Bot: Loading your question...";
                 chat.appendChild(loadingMessage);
-                scrollToBottom();
+                scrollToBottom(); // Scroll after loading message
             }
-
-            // Get solved puzzles for this session
-            const solvedPuzzles = JSON.parse(localStorage.getItem(`${sessionId}_solved_puzzles`) || '[]');
 
             fetch('/chatbot/', {
                 method: 'POST',
@@ -489,12 +452,7 @@
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'X-CSRFToken': getCookie('csrftoken')
                 },
-                body: new URLSearchParams({ 
-                    user_input: userInput,
-                    session_id: sessionId,
-                    current_score: currentScore,
-                    solved_puzzles: JSON.stringify(solvedPuzzles)
-                })
+                body: new URLSearchParams({ user_input: userInput })
             })
             .then(response => response.json())
             .then(data => {
@@ -509,47 +467,27 @@
                     const imageElement = document.createElement('img');
                     imageElement.src = `data:image/png;base64,${data.image}`;
                     imageElement.className = "responsive-image";
-                    imageElement.onload = scrollToBottom;
+                    imageElement.onload = scrollToBottom; // Scroll after image loads
                     botMessage.appendChild(imageElement);
                 }
 
                 const textElement = document.createElement('div');
                 textElement.textContent = "Bot: " + data.response;
                 botMessage.appendChild(textElement);
+
                 chat.appendChild(botMessage);
-                scrollToBottom();
-
-                // Update game state
-                if (data.score !== undefined) {
-                    currentScore = data.score;
-                    localStorage.setItem(`${sessionId}_score`, currentScore.toString());
-                    document.getElementById('scoreDisplay').textContent = `Score: ${currentScore}`;
-                }
-
-                if (data.solved_puzzle) {
-                    const solvedPuzzles = JSON.parse(localStorage.getItem(`${sessionId}_solved_puzzles`) || '[]');
-                    if (!solvedPuzzles.includes(data.solved_puzzle)) {
-                        solvedPuzzles.push(data.solved_puzzle);
-                        localStorage.setItem(`${sessionId}_solved_puzzles`, JSON.stringify(solvedPuzzles));
-                    }
-                }
+                scrollToBottom(); // Scroll after bot message
 
                 if (data.remaining_elements) {
                     interactiveElements = data.remaining_elements.map(el => el.toLowerCase());
                 }
 
                 if (data.reload || data.response.includes("Out of lives!")) {
-                    // Clear session data on game over
-                    localStorage.removeItem(`${sessionId}_score`);
-                    localStorage.removeItem(`${sessionId}_lives`);
-                    localStorage.removeItem(`${sessionId}_solved_puzzles`);
-                    localStorage.removeItem('gameSessionId');
-                    
                     const reloadMessage = document.createElement('div');
                     reloadMessage.className = "message bot-message";
                     reloadMessage.textContent = "Starting a new game...";
                     chat.appendChild(reloadMessage);
-                    scrollToBottom();
+                    scrollToBottom(); // Scroll before reload
                     
                     setTimeout(() => {
                         window.location.reload(true);
@@ -557,25 +495,39 @@
                     return;
                 }
 
-                // Lives handling
+                // Score and lives handling
+                const scoreRegexes = [
+                    /Current score: (\d+) points/,
+                    /Total score: (\d+) points/
+                ];
+
+                const scoreMatch = scoreRegexes.reduce((match, regex) => {
+                    return match || data.response.match(regex);
+                }, null);
+
+                if (scoreMatch) {
+                    const score = parseInt(scoreMatch[1]);
+                    document.getElementById('scoreDisplay').textContent = `Score: ${score}`;
+                }
+
                 const livesMatch = data.response.match(/Lives remaining: (\d+)/);
                 if (livesMatch) {
                     lives = parseInt(livesMatch[1]);
-                    localStorage.setItem(`${sessionId}_lives`, lives.toString());
                     document.getElementById('lives').textContent = "Lives: " + lives;
 
                     const existingWarning = document.getElementById('last-life-warning');
                     if (lives === 1 && !existingWarning) {
                         const warningElement = document.createElement('div');
                         warningElement.id = 'last-life-warning';
-                        warningElement.className = 'warning';
+                        warningElement.style.color = 'red';
+                        warningElement.style.fontWeight = 'bold';
+                        warningElement.style.textAlign = 'center';
+                        warningElement.style.padding = '10px';
                         warningElement.textContent = '⚠️ CRITICAL ALERT: FINAL LIFE REMAINING! ONE WRONG MOVE ENDS THE GAME ⚠️';
                         
                         const chatbox = document.querySelector('.chatbox');
                         chatbox.insertBefore(warningElement, chatbox.lastElementChild);
-                        scrollToBottom();
-                    } else if (lives !== 1 && existingWarning) {
-                        existingWarning.remove();
+                        scrollToBottom(); // Scroll after warning message
                     }
                 }
             })
@@ -585,11 +537,12 @@
                 errorMessage.className = "message bot-message";
                 errorMessage.textContent = "Bot: Connection error. Please try again.";
                 chat.appendChild(errorMessage);
-                scrollToBottom();
+                scrollToBottom(); // Scroll after error message
             });
             
             document.getElementById('userInput').value = '';
         }
+
 
         function getCookie(name) {
             const cookies = document.cookie.split(';');
@@ -607,6 +560,7 @@
                 sendMessage();
             }
         });
+        
     </script>
 </body>
 </html>
