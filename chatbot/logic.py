@@ -15,8 +15,6 @@ from PIL import Image
 import requests
 import random
 from PIL import Image, ImageDraw, ImageFont
-from dotenv import load_dotenv
-from .models import UserGameSession
 
 logging.basicConfig(
     level=logging.ERROR,
@@ -30,17 +28,10 @@ class PuzzleLogic:
 
     def __init__(self):
         # Load NLP model only once per class
-        load_dotenv()
-        self.session_id = None
-        self.user_solved_elements = {}
-
         if PuzzleLogic._nlp is None:
             PuzzleLogic._nlp = spacy.load("en_core_web_md")
         self.nlp = PuzzleLogic._nlp
 
-        self.hf_api_token = os.getenv("HF_API_TOKEN")
-        if not self.hf_api_token:
-            logging.error("HF_API_TOKEN is not set in the environment.")
         # Optimize data loading with prefetching
         self.load_data_optimized()
         
@@ -50,37 +41,6 @@ class PuzzleLogic:
         self.hints_used = 0
 
         
-    def set_session(self, session_id):
-        """Set the current user session ID"""
-        self.session_id = session_id
-        # Load or create user session
-        session, created = UserGameSession.objects.get_or_create(
-            session_id=session_id,
-            defaults={'solved_elements': {}}
-        )
-        self.user_solved_elements = session.solved_elements
-
-    def is_element_solved(self, theme, element):
-        """Check if element is solved for current user"""
-        theme_key = self.normalize_string(theme)
-        element_key = self.normalize_string(element)
-        return self.user_solved_elements.get(theme_key, {}).get(element_key, False)
-
-    def mark_element_solved(self, theme, element):
-        """Mark element as solved for current user"""
-        theme_key = self.normalize_string(theme)
-        element_key = self.normalize_string(element)
-        
-        if theme_key not in self.user_solved_elements:
-            self.user_solved_elements[theme_key] = {}
-        
-        self.user_solved_elements[theme_key][element_key] = True
-        
-        # Update database
-        UserGameSession.objects.filter(session_id=self.session_id).update(
-            solved_elements=self.user_solved_elements,
-            last_active=timezone.now()
-        )
 
     def reset_game_state(self):
         self.current_room_index = 0
@@ -97,13 +57,6 @@ class PuzzleLogic:
         self.lives = 3
         self.score = 0
         self.hints_used = 0
-        if self.session_id:
-            # Clear user's solved elements
-            UserGameSession.objects.filter(session_id=self.session_id).update(
-                solved_elements={},
-                last_active=timezone.now()
-            )
-            self.user_solved_elements = {}
 
     def normalize_string(self, text):
         return unicodedata.normalize('NFKD', text.lower()).strip() if text else text
@@ -449,7 +402,7 @@ class PuzzleLogic:
     def generate_element_image(self, element_name, puzzle_text):
         API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
         headers = {
-            "Authorization": f"Bearer {self.hf_api_token}",
+            "Authorization": "Bearer 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",
             "Content-Type": "application/json"
         }
 
