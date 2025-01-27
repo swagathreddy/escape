@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-sx4+=h(b_#wk@_3x4ngqn4b(0$=wnno_ttonqo82+v9ks(3vtp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://escape-production.up.railway.app/']
 
 
 # Application definition
