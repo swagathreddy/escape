@@ -6,7 +6,7 @@ import traceback
 from io import BytesIO
 from PIL import Image
 import requests
-from django.views.decorators.csrf import csrf_exempt  # Add this import
+from django.views.decorators.csrf import csrf_exempt
 
 # Configure logging
 logging.basicConfig(
@@ -15,22 +15,37 @@ logging.basicConfig(
     filename='django_errors.log'
 )
 
-class EscapeRoomView(object):
-    # Your EscapeRoomView class remains the same
-    pass
+class EscapeRoomView:  # Changed from object to regular class
+    def __init__(self, session=None):  # Added default None parameter
+        self.puzzle_logic = PuzzleLogic()
+        if session:
+            state = session.get('puzzle_logic_state', None)
+            if state:
+                self.puzzle_logic.from_dict(state)
 
-@csrf_exempt  # Add this decorator
+    def save_session(self, session):
+        session['puzzle_logic_state'] = self.puzzle_logic.to_dict()
+        session.modified = True
+
+    def get_initial_puzzle(self):
+        if not self.puzzle_logic.game_started:
+            return self.puzzle_logic.start_game()
+        else:
+            return self.puzzle_logic.get_puzzle()
+
+@csrf_exempt
 def index(request):
     request.session.flush()
-    view = EscapeRoomView(request.session)
+    view = EscapeRoomView(request.session)  # Now this will work
     initial_puzzle = view.get_initial_puzzle()
     view.save_session(request.session)
     return render(request, 'index.html', {'initial_puzzle': initial_puzzle})
 
-@csrf_exempt  # Add this decorator
+@csrf_exempt
 def chatbot_response(request):
     try:
         view = EscapeRoomView(request.session)
+        # Rest of your chatbot_response function stays the same
         
         if request.method != 'POST':
             return JsonResponse({"error": "Invalid request method"}, status=405)
