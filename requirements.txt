@@ -9,8 +9,7 @@ psycopg2-binary==2.9.9
 Django==5.1.4
 django-cors-headers==4.6.0
 django-modeltranslation==0.19.11
-en_core_web_md @ https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.8.0/en_core_web_md-3.8.0-py3-none-any.whl#sha256=c6da3ce25ed4cf1c19d07495c5c786a6093de39be59895939aeb2830a6bab41e
-fuzzywuzzy==0.18.0
+en_core_web_md@ https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.8.0/en_core_web_md-3.8.0-py3-none-any.whl#sha256=5e6329fe3fecedb1d1a02c3ea2172ee0fede6cea6e4aefb6a02d832dba78a310fuzzywuzzy==0.18.0
 gunicorn==21.2.0
 huggingface-hub==0.27.1
 
