@@ -2,7 +2,8 @@
 asgiref==3.8.1
 asttokens==2.4.1
 async-lru==2.0.4
-
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.23.0
 
 psycopg2-binary==2.9.9
 
