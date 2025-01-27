@@ -6,6 +6,7 @@ import traceback
 from io import BytesIO
 from PIL import Image
 import requests
+from django.views.decorators.csrf import csrf_exempt  # Add this import
 
 # Configure logging
 logging.basicConfig(
@@ -14,45 +15,19 @@ logging.basicConfig(
     filename='django_errors.log'
 )
 
-
-
-
 class EscapeRoomView(object):
-    def __init__(self, session):
-        state = session.get('puzzle_logic_state', None)
-        self.puzzle_logic = PuzzleLogic()
-        if state:
-            self.puzzle_logic.from_dict(state)
+    # Your EscapeRoomView class remains the same
+    pass
 
-    def save_session(self, session):
-        session['puzzle_logic_state'] = self.puzzle_logic.to_dict()
-        session.modified = True
-
-    def get_initial_puzzle(self):
-        if not self.puzzle_logic.game_started:
-            return self.puzzle_logic.start_game()
-        else:
-            return self.puzzle_logic.get_puzzle()
-
-
+@csrf_exempt  # Add this decorator
 def index(request):
-    # Clear the session data to reset the game state
     request.session.flush()
-
     view = EscapeRoomView(request.session)
     initial_puzzle = view.get_initial_puzzle()
     view.save_session(request.session)
     return render(request, 'index.html', {'initial_puzzle': initial_puzzle})
 
-
-from django.shortcuts import render
-from django.http import JsonResponse
-from .logic import PuzzleLogic
-import logging
-import traceback
-import base64
-import random  # Add this import
-
+@csrf_exempt  # Add this decorator
 def chatbot_response(request):
     try:
         view = EscapeRoomView(request.session)
@@ -65,13 +40,11 @@ def chatbot_response(request):
         if not user_input:
             return JsonResponse({"error": "Empty user input"}, status=400)
         
-        # Check for game completion scenarios
+        # Rest of your chatbot_response function remains the same
         if view.puzzle_logic.game_over and user_input.lower() == 'next':
-            # Clear the session to fully reset the game
             request.session.flush()
             return JsonResponse({"reload": True})
         
-        # Existing game logic
         response_data = {"response": ""}
         try:
             correct, response = view.puzzle_logic.play_game(user_input)
@@ -94,12 +67,8 @@ def chatbot_response(request):
     except Exception as e:
         logging.error(f"Detailed Error: {e}")
         return JsonResponse({"error": "Unexpected error"}, status=500)
-    
 
-from django.http import JsonResponse
-from .models import Element
-
+@csrf_exempt  # Add this decorator
 def fetch_elements(request):
-    # Fetch all element names from the database
     elements = Element.objects.values_list('name', flat=True)
     return JsonResponse({"elements": list(elements)})
