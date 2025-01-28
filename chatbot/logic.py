@@ -565,22 +565,20 @@ class PuzzleLogic:
             if image:
                 return {
                     "text": f"Your puzzle for the {original_element} is: {puzzle_text}",
-                    "image": image
+                    "image": image,
+                    "success": True
                 }
             else:
-                # If image generation failed, retry once
-                retry_image = self.generate_element_image(original_element, puzzle_text)
-                if retry_image:
-                    self.element_images[element_key] = retry_image
-                    return {
-                        "text": f"Your puzzle for the {original_element} is: {puzzle_text}",
-                        "image": retry_image
-                    }
-                else:
-                    # If still no image, show a loading message
-                    return {
-                        "text": "Preparing your puzzle... Please try again in a moment.",
-                        "loading": True
-                    }
+                # If image generation failed
+                return {
+                    "text": f"Image generation failed. Your puzzle for the {original_element} is: {puzzle_text}\nPlease try interacting with the element again if you'd like to see the image.",
+                    "error": True,
+                    "retry": True
+                }
         
-        return "Invalid element. Please type the name of an available element or ask for a hint."
+        return {
+            "text": "Invalid element. Please type the name of an available element or ask for a hint.",
+            "error": True
+        }
+        
+    
