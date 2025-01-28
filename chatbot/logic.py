@@ -34,6 +34,7 @@ class PuzzleLogic:
         load_dotenv()
         self.session_id = None
         self.user_solved_elements = {}
+        self.element_images = {}
 
         if PuzzleLogic._nlp is None:
             PuzzleLogic._nlp = spacy.load("en_core_web_md")
@@ -466,41 +467,49 @@ class PuzzleLogic:
         }
 
         # Create a prompt that combines the element name and puzzle
-        prompt = f"Mysterious {element_name} related to the puzzle: {puzzle_text}. Dark, cyberpunk detective style, with dramatic lighting and intrigue"
-
-        try:
-            response = requests.post(API_URL, headers=headers, json={
-                "inputs": prompt,
-                "parameters": {
-                    "negative_prompt": "blurry, low quality, bad composition",
-                    "num_inference_steps": 30,
-                    "guidance_scale": 7.5
-                }
-            })
-
-            if response.status_code == 200:
-                # Convert image to base64
-                image = Image.open(io.BytesIO(response.content))
+        max_retries = 3
+        retry_count = 0
+        
+        while retry_count < max_retries:
+            try:
+                prompt = f"Mysterious {element_name} related to the puzzle: {puzzle_text}. Dark, cyberpunk detective style, with dramatic lighting and intrigue"
                 
-                # Resize image to a reasonable size
-                image.thumbnail((400, 400))
-                
-                # Save to a BytesIO object
-                buffered = io.BytesIO()
-                image.save(buffered, format="PNG")
-                
-                # Encode to base64
-                image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
-                
-                return image_base64
-            else:
-                logging.error(f"Image generation error: {response.text}")
-                return None
+                response = requests.post(
+                    API_URL, 
+                    headers=headers, 
+                    json={
+                        "inputs": prompt,
+                        "parameters": {
+                            "negative_prompt": "blurry, low quality, bad composition",
+                            "num_inference_steps": 30,
+                            "guidance_scale": 7.5
+                        }
+                    },
+                    timeout=30  # Add timeout
+                )
 
-        except Exception as e:
-            logging.error(f"Image generation exception: {e}")
-            return None
-
+                if response.status_code == 200:
+                    image = Image.open(io.BytesIO(response.content))
+                    image.thumbnail((400, 400))
+                    buffered = io.BytesIO()
+                    image.save(buffered, format="PNG")
+                    return base64.b64encode(buffered.getvalue()).decode('utf-8')
+                
+                elif response.status_code == 503:  # Model loading
+                    time.sleep(2)  # Wait before retry
+                    retry_count += 1
+                    continue
+                    
+                else:
+                    logging.error(f"Image generation error: {response.text}")
+                    retry_count += 1
+                    
+            except Exception as e:
+                logging.error(f"Image generation exception: {e}")
+                retry_count += 1
+                time.sleep(1)
+                
+        return None  # Return None if all r
 
     def interact_with_element(self, user_input):
         normalized_input = self.normalize_string(user_input)
@@ -541,12 +550,37 @@ class PuzzleLogic:
             puzzle_text = element_data['puzzle']
             
             # Generate image for the element
-            generated_image = self.generate_element_image(original_element, puzzle_text)
+            element_key = f"{current_room_key}_{original_element}"
             
-            return {
-                "text": f"Your puzzle for the {original_element} is: {puzzle_text}",
-                "image": generated_image if generated_image else None
-            }
+            if element_key not in self.element_images:
+                # Generate and cache the image
+                generated_image = self.generate_element_image(original_element, puzzle_text)
+                if generated_image:
+                    self.element_images[element_key] = generated_image
+            
+            # Use cached image if available
+            image = self.element_images.get(element_key)
+            
+            # Only return the puzzle text once we have the image
+            if image:
+                return {
+                    "text": f"Your puzzle for the {original_element} is: {puzzle_text}",
+                    "image": image
+                }
+            else:
+                # If image generation failed, retry once
+                retry_image = self.generate_element_image(original_element, puzzle_text)
+                if retry_image:
+                    self.element_images[element_key] = retry_image
+                    return {
+                        "text": f"Your puzzle for the {original_element} is: {puzzle_text}",
+                        "image": retry_image
+                    }
+                else:
+                    # If still no image, show a loading message
+                    return {
+                        "text": "Preparing your puzzle... Please try again in a moment.",
+                        "loading": True
+                    }
         
         return "Invalid element. Please type the name of an available element or ask for a hint."
-        
