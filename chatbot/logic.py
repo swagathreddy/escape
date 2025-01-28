@@ -269,7 +269,7 @@ class PuzzleLogic:
                     )
                     
                     if remaining == 0:
-                        return True, f"🎉 Congratulations! Room completed! Total score: {self.score} points. Type 'next' for a new theme."
+                        return True, f"🎉 Congratulations! Room completed! Score: {self.score} points. Type 'next' for a new theme."
                     
                     unsolved = [
                         element for element in current_room['elements'].keys()
@@ -534,18 +534,22 @@ class PuzzleLogic:
                 if score > best_score and score > 70:
                     best_match = element
                     best_score = score
-            
+                
             if best_match:
                 matched_elements = {best_match}
         
         # Process the matched element
         if matched_elements:
             original_element = normalized_elements[list(matched_elements)[0]]
+            
+            # Check if element is already solved using the session data
+            if self.is_element_solved(current_room_key, original_element):
+                return {
+                    "text": f"The {original_element} has already been solved. Try another element!",
+                    "error": True
+                }
+                
             element_data = current_room['elements'][original_element]
-            
-            if element_data['solved']:
-                return f"The puzzle for the {original_element} is already solved. Please choose another element to interact with."
-            
             self.current_element = original_element
             puzzle_text = element_data['puzzle']
             
@@ -561,7 +565,6 @@ class PuzzleLogic:
             # Use cached image if available
             image = self.element_images.get(element_key)
             
-            # Only return the puzzle text once we have the image
             if image:
                 return {
                     "text": f"Your puzzle for the {original_element} is: {puzzle_text}",
@@ -571,7 +574,7 @@ class PuzzleLogic:
             else:
                 # If image generation failed
                 return {
-                    "text": f"Image generation failed. Your puzzle for the {original_element} is: {puzzle_text}\n.Answer the question",
+                    "text": f"Image generation failed. Your puzzle for the {original_element} is: {puzzle_text}\nPlease answer the question",
                     "error": True,
                     "retry": True
                 }
@@ -580,5 +583,3 @@ class PuzzleLogic:
             "text": "Invalid element. Please type the name of an available element or ask for a hint.",
             "error": True
         }
-        
-    
