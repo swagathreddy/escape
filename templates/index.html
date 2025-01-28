@@ -117,6 +117,29 @@
             animation: scanline 6s linear infinite;
             opacity: 0.5;
         }
+        .loading-spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    border: 4px solid var(--secondary-color);
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.image-loading-placeholder {
+    background: rgba(5, 217, 232, 0.1);
+    color: var(--secondary-color);
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    border: 1px dashed var(--secondary-color);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
         @keyframes scanline {
             0% { transform: translateY(-100%); }
@@ -404,10 +427,10 @@
         </div>
     </div>
 
-    <script>
-   
-let lives = 3;
-let interactiveElements = []; // List of elements fetched from the database
+<script>
+   let lives = 3;
+let interactiveElements = [];
+let isProcessingMessage = false; // Flag to prevent multiple simultaneous requests
 
 // Fetch elements from the backend on page load
 function fetchInteractiveElements() {
@@ -430,22 +453,25 @@ function handleGameReload(message = "Starting a new game...") {
     reloadMessage.textContent = message;
     chat.appendChild(reloadMessage);
     
-    // Scroll to bottom
     chat.scrollTop = chat.scrollHeight;
-
-    // Reload after a short delay
+    
     setTimeout(() => {
         window.location.reload(true);
     }, 1000);
 }
 
-function sendMessage() {
-    const userInput = document.getElementById('userInput').value.trim();
+async function sendMessage() {
+    if (isProcessingMessage) return; // Prevent multiple simultaneous requests
+    
+    const userInputField = document.getElementById('userInput');
+    const userInput = userInputField.value.trim();
     if (!userInput) return;
 
+     userInputField.value = ''
+    isProcessingMessage = true;
     const chat = document.getElementById('chat');
 
-    // Check if previous message was game completion and current input is "next"
+    // Check for game completion
     const messages = chat.getElementsByClassName('message');
     const lastBotMessage = Array.from(messages)
         .reverse()
@@ -455,120 +481,181 @@ function sendMessage() {
         lastBotMessage.textContent.includes('Congratulations! Room completed!') && 
         userInput.toLowerCase() === 'next') {
         handleGameReload("Starting next room...");
+        isProcessingMessage = false;
         return;
     }
 
-    // Add the user's message to the chat
+    // Add user message
     const userMessage = document.createElement('div');
     userMessage.className = "message user-message";
     userMessage.textContent = "You: " + userInput;
     chat.appendChild(userMessage);
+    scrollToBottom(chat);
 
+
+    // Add loading message for element interactions
     let loadingMessage = null;
-
-    // Check if the user input matches an interactive element
     if (interactiveElements.includes(userInput.toLowerCase())) {
-        // Show a loading message if interacting with an element
         loadingMessage = document.createElement('div');
         loadingMessage.className = "message bot-message";
-        loadingMessage.textContent = "Bot: Loading your question...";
+        loadingMessage.innerHTML = `
+            <div>Bot: Analyzing element and generating visualization...</div>
+            <div style="text-align: center; margin-top: 10px;">
+                <div class="loading-spinner"></div>
+            </div>
+        `;
         chat.appendChild(loadingMessage);
-        chat.scrollTop = chat.scrollHeight;
+        scrollToBottom(chat);
+
     }
 
-    // Fetch response from the server
-    fetch('/chatbot/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'X-CSRFToken': getCookie('csrftoken')
-        },
-        body: new URLSearchParams({ user_input: userInput })
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Remove the loading message if it was added
-        if (loadingMessage) {
-            chat.removeChild(loadingMessage);
-        }
+    try {
+        const response = await fetch('/chatbot/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: new URLSearchParams({ user_input: userInput })
+        });
 
-        // Add the bot's actual response
-        const botMessage = document.createElement('div');
-        botMessage.className = "message bot-message";
+        const data = await response.json();
 
-        // Check if response includes an image
-        if (data.image) {
-            const imageElement = document.createElement('img');
-            imageElement.src = `data:image/png;base64,${data.image}`;
-            imageElement.className = "responsive-image";
-            botMessage.appendChild(imageElement);
-        }
+        // Handle loading state
+        if (data.loading) {
+            if (loadingMessage) {
+                loadingMessage.innerHTML = `
+                    <div>Bot: Still generating image... Please wait...</div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <div class="loading-spinner"></div>
+                    </div>
+                `;
+                scrollToBottom(chat);
 
-        // Add the bot's text response
-        const textElement = document.createElement('div');
-        textElement.textContent = "Bot: " + data.response;
-        botMessage.appendChild(textElement);
+                // Retry after delay
+                setTimeout(() => {
+                    sendMessage();
+                }, (data.retry_after || 2) * 1000);
+                return;
+            }
+        } else {
+            // Remove loading message if it exists
+            if (loadingMessage) {
+                chat.removeChild(loadingMessage);
+            }
 
-        chat.appendChild(botMessage);
-        chat.scrollTop = chat.scrollHeight;
+            // Create and add bot response
+            const botMessage = document.createElement('div');
+            botMessage.className = "message bot-message";
 
-        // Update the list of interactive elements
-        if (data.remaining_elements) {
-            interactiveElements = data.remaining_elements.map(el => el.toLowerCase());
-        }
-
-        // Handle game over scenarios
-        if (data.reload || data.response.includes("Out of lives!")) {
-            handleGameReload();
-            return;
-        }
-
-        // Handle score updates
-        const scoreRegexes = [
-            /Current score: (\d+) points/,
-            /Total score: (\d+) points/
-        ];
-
-        const scoreMatch = scoreRegexes.reduce((match, regex) => {
-            return match || data.response.match(regex);
-        }, null);
-
-        if (scoreMatch) {
-            const score = parseInt(scoreMatch[1]);
-            document.getElementById('scoreDisplay').textContent = `Score: ${score}`;
-        }
-
-        // Lives tracking logic
-        const livesMatch = data.response.match(/Lives remaining: (\d+)/);
-        if (livesMatch) {
-            lives = parseInt(livesMatch[1]);
-            document.getElementById('lives').textContent = "Lives: " + lives;
-
-            const existingWarning = document.getElementById('last-life-warning');
-            if (lives === 1 && !existingWarning) {
-                const warningElement = document.createElement('div');
-                warningElement.id = 'last-life-warning';
-                warningElement.style.color = 'red';
-                warningElement.style.fontWeight = 'bold';
-                warningElement.style.textAlign = 'center';
-                warningElement.style.padding = '10px';
-                warningElement.textContent = '⚠️ CRITICAL ALERT: FINAL LIFE REMAINING! ONE WRONG MOVE ENDS THE GAME ⚠️';
+            // Handle image if present
+            if (data.image) {
+                const imageContainer = document.createElement('div');
+                imageContainer.style.position = 'relative';
                 
-                const chatbox = document.querySelector('.chatbox');
-                chatbox.insertBefore(warningElement, chatbox.lastElementChild);
+                const imageElement = document.createElement('img');
+                imageElement.src = `data:image/png;base64,${data.image}`;
+                imageElement.className = "responsive-image";
+                
+                // Add loading placeholder
+                const loadingPlaceholder = document.createElement('div');
+                loadingPlaceholder.className = "image-loading-placeholder";
+                loadingPlaceholder.textContent = "Loading image...";
+                
+                imageContainer.appendChild(loadingPlaceholder);
+                imageContainer.appendChild(imageElement);
+                
+                // Handle image loading
+                imageElement.onload = () => {
+                    loadingPlaceholder.style.display = 'none';
+                    imageElement.style.display = 'block';
+                    scrollToBottom(chat);
+
+                };
+                
+                imageElement.onerror = () => {
+                    loadingPlaceholder.textContent = "Failed to load image";
+                    scrollToBottom(chat);
+
+                };
+                
+                botMessage.appendChild(imageContainer);
+            }
+
+            // Add text response
+            const textElement = document.createElement('div');
+            textElement.textContent = "Bot: " + data.response;
+            botMessage.appendChild(textElement);
+
+            chat.appendChild(botMessage);
+            scrollToBottom(chat);
+
+
+            // Update interactive elements
+            if (data.remaining_elements) {
+                interactiveElements = data.remaining_elements.map(el => el.toLowerCase());
+            }
+
+            // Handle game over
+            if (data.reload || data.response.includes("Out of lives!")) {
+                handleGameReload();
+                return;
+            }
+
+            // Update score
+            const scoreRegexes = [
+                /Current score: (\d+) points/,
+                /Total score: (\d+) points/
+            ];
+
+            const scoreMatch = scoreRegexes.reduce((match, regex) => {
+                return match || data.response.match(regex);
+            }, null);
+
+            if (scoreMatch) {
+                const score = parseInt(scoreMatch[1]);
+                document.getElementById('scoreDisplay').textContent = `Score: ${score}`;
+            }
+
+            // Update lives
+            const livesMatch = data.response.match(/Lives remaining: (\d+)/);
+            if (livesMatch) {
+                lives = parseInt(livesMatch[1]);
+                document.getElementById('lives').textContent = "Lives: " + lives;
+
+                // Add warning for last life
+                const existingWarning = document.getElementById('last-life-warning');
+                if (lives === 1 && !existingWarning) {
+                    const warningElement = document.createElement('div');
+                    warningElement.id = 'last-life-warning';
+                    warningElement.className = 'warning';
+                    warningElement.textContent = '⚠️ CRITICAL ALERT: FINAL LIFE REMAINING! ONE WRONG MOVE ENDS THE GAME ⚠️';
+                    
+                    const chatbox = document.querySelector('.chatbox');
+                    chatbox.insertBefore(warningElement, chatbox.lastElementChild);
+                    scrollToBottom(chat);
+
+                }
             }
         }
-    })
-    .catch(error => {
+    } catch (error) {
         console.error('Error:', error);
         const errorMessage = document.createElement('div');
         errorMessage.className = "message bot-message";
         errorMessage.textContent = "Bot: Connection error. Please try again.";
         chat.appendChild(errorMessage);
-    });
+        scrollToBottom(chat);
+
+    } finally {
+        isProcessingMessage = false;
+        document.getElementById('userInput').value = '';
+    }
     
-    document.getElementById('userInput').value = '';
 }
+function scrollToBottom(element) {
+    element.scrollTop = element.scrollHeight;
+}
+
 
 function getCookie(name) {
     const cookies = document.cookie.split(';');
@@ -581,6 +668,7 @@ function getCookie(name) {
     return null;
 }
 
+// Add enter key handler
 document.getElementById('userInput').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         sendMessage();
