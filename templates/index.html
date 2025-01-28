@@ -492,10 +492,11 @@ async function sendMessage() {
     chat.appendChild(userMessage);
     scrollToBottom(chat);
 
+    const mightBeElementInteraction = checkElementInteraction(userInput, interactiveElements);
 
     // Add loading message for element interactions
     let loadingMessage = null;
-    if (interactiveElements.includes(userInput.toLowerCase())) {
+    if (mightBeElementInteraction) {
         loadingMessage = document.createElement('div');
         loadingMessage.className = "message bot-message";
         loadingMessage.innerHTML = `
@@ -652,6 +653,59 @@ async function sendMessage() {
     }
     
 }
+function checkElementInteraction(input, elements) {
+    input = input.toLowerCase().trim();
+    
+    // Common interaction verbs and prepositions to filter out
+    const filterWords = [
+        'inspect', 'check', 'look', 'examine', 'investigate', 'view', 
+        'see', 'interact', 'use', 'at', 'the', 'a', 'an', 'with', 
+        'i', 'want', 'to', 'can', 'you', 'please', 'tell', 'me', 'about'
+    ];
+    
+    // Create variations of input with and without underscores
+    const inputWithoutUnderscores = input.replace(/_/g, ' ');
+    const inputWithUnderscores = input.replace(/\s+/g, '_');
+    
+    // Remove filter words and create a clean version of the input
+    const cleanInput = input.split(' ')
+        .filter(word => !filterWords.includes(word))
+        .join(' ');
+    
+    for (const element of elements) {
+        // Create variations of the element name
+        const elementWithoutUnderscores = element.replace(/_/g, ' ');
+        const elementWithUnderscores = element.replace(/\s+/g, '_');
+        
+        // Check for exact matches with various formats
+        if ([input, inputWithoutUnderscores, inputWithUnderscores].includes(element) ||
+            [input, inputWithoutUnderscores, inputWithUnderscores].includes(elementWithoutUnderscores) ||
+            [input, inputWithoutUnderscores, inputWithUnderscores].includes(elementWithUnderscores)) {
+            return true;
+        }
+        
+        // Check if element appears as a substring in the cleaned input
+        if (cleanInput.includes(elementWithoutUnderscores) || 
+            cleanInput.includes(elementWithUnderscores)) {
+            return true;
+        }
+        
+        // Check if all words of the element appear in the input in any order
+        const elementWords = elementWithoutUnderscores.split(' ');
+        const allPartsPresent = elementWords.every(part => 
+            cleanInput.split(' ').some(word => 
+                word.includes(part) || part.includes(word)
+            )
+        );
+        
+        if (allPartsPresent) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
 function scrollToBottom(element) {
     element.scrollTop = element.scrollHeight;
 }
