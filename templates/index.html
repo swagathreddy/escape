@@ -523,27 +523,27 @@ async function sendMessage() {
         const data = await response.json();
 
         // Handle loading state
-        if (data.loading) {
-            if (loadingMessage) {
-                loadingMessage.innerHTML = `
-                    <div>Bot: Still generating image... Please wait...</div>
-                    <div style="text-align: center; margin-top: 10px;">
-                        <div class="loading-spinner"></div>
-                    </div>
-                `;
-                scrollToBottom(chat);
+        if (loadingMessage) {
+            chat.removeChild(loadingMessage);
+        }
 
-                // Retry after delay
+        if (data.error) {
+            const errorMessage = document.createElement('div');
+            errorMessage.className = "message bot-message";
+            errorMessage.textContent = "Bot: " + data.response;
+            chat.appendChild(errorMessage);
+
+            if (data.retry) {
                 setTimeout(() => {
-                    sendMessage();
-                }, (data.retry_after || 2) * 1000);
-                return;
+                    const retryMessage = document.createElement('div');
+                    retryMessage.className = "message bot-message";
+                    retryMessage.textContent = "Bot: You can try interacting with the element again for the image.";
+                    chat.appendChild(retryMessage);
+                }, 1000);
             }
         } else {
             // Remove loading message if it exists
-            if (loadingMessage) {
-                chat.removeChild(loadingMessage);
-            }
+           
 
             // Create and add bot response
             const botMessage = document.createElement('div');
