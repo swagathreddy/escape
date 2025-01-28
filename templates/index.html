@@ -1,585 +1,729 @@
-import spacy
-from fuzzywuzzy import fuzz
-import time
-import unicodedata
-from chatbot.models import Theme, Room, Element, Answer
-import traceback
-import logging
-from django.db.models import Prefetch
-import base64
-import io
-from io import BytesIO
-from PIL import Image
-import os
-from PIL import Image    
-import requests
-import random
-from PIL import Image, ImageDraw, ImageFont
-from dotenv import load_dotenv
-from .models import UserGameSession
-from datetime import timezone
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Void: Escape Protocol</title>
+    <style>
+       @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-logging.basicConfig(
-    level=logging.ERROR,
-    format='%(asctime)s - %(levelname)s: %(message)s',
-    filename='game_errors.log'
-)
+        :root {
+            --primary-color: #ff2a6d;
+            --secondary-color: #05d9e8;
+            --bg-dark: #1a1a1a;
+            --text-color: #d1fff3;
+        }
 
-class PuzzleLogic:
-    _nlp = None  # Class-level caching of NLP model
+        body {
+            font-family: 'VT323', monospace;
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.92)),
+                url('https://images.unsplash.com/photo-1501862700950-18382cd41497?auto=format&fit=crop&w=2069&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            animation: backgroundPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes backgroundPulse {
+            0%, 100% { filter: brightness(1) contrast(1); }
+            50% { filter: brightness(0.8) contrast(1.2); }
+        }
+
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMDY2pkYmJUU+NfAAAAPklEQVQ4y2NgQAX8DKiAH58EAxChykABWEQDoRgqwIJPYgEDA1ESTAgSTGQpxuUkJDVESYA0kG4RcYYNVgkA+/qHxaSqz/QAAAAASUVORK5CYII=');
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: min(90%, 1000px);
+            margin: 2rem auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title-container {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            animation: textGlitch 3s infinite;
+            text-shadow: 
+                0 0 10px var(--primary-color),
+                0 0 20px var(--primary-color),
+                0 0 40px var(--primary-color);
+        }
+
+        @keyframes textGlitch {
+            0%, 100% { transform: none; opacity: 1; }
+            92% { transform: skew(2deg); }
+            94% { transform: skew(-2deg); opacity: 0.8; }
+            96% { transform: skew(5deg); opacity: 0.9; }
+            98% { transform: none; opacity: 1; }
+        }
+
+        .chatbox {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--secondary-color);
+            border-radius: 4px;
+            box-shadow: 
+                0 0 20px rgba(5, 217, 232, 0.2),
+                inset 0 0 20px rgba(5, 217, 232, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .chatbox::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--secondary-color);
+            animation: scanline 6s linear infinite;
+            opacity: 0.5;
+        }
+        .loading-spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    border: 4px solid var(--secondary-color);
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.image-loading-placeholder {
+    background: rgba(5, 217, 232, 0.1);
+    color: var(--secondary-color);
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+    border: 1px dashed var(--secondary-color);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(600px); }
+        }
+
+        .chat {
+            height: 60vh;
+            min-height: 400px;
+            overflow-y: auto;
+            padding: 1.5rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary-color) transparent;
+            scroll-behavior: smooth;
+        }
+
+        .chat::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .chat::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 3px;
+        }
+
+        .message {
+            margin: 1rem 0;
+            padding: 1rem;
+            max-width: 85%;
+            font-size: 1.4rem;
+            line-height: 1.4;
+            position: relative;
+            animation: messageAppear 0.3s ease-out;
+        }
+
+        @keyframes messageAppear {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bot-message {
+            background: rgba(5, 217, 232, 0.1);
+            border-left: 3px solid var(--secondary-color);
+            margin-right: auto;
+        }
+
+        .user-message {
+            background: rgba(255, 42, 109, 0.1);
+            border-right: 3px solid var(--primary-color);
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .input-container {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 1px solid var(--secondary-color);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .input-box {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            background: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--text-color);
+            font-family: 'VT323', monospace;
+            font-size: 1.4rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-box:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(5, 217, 232, 0.3);
+        }
+
+        .submit-btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            font-family: 'VT323', monospace;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-color);
+            color: var(--bg-dark);
+            box-shadow: 0 0 20px rgba(255, 42, 109, 0.4);
+        }
+
+        .lives {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+            animation: pulse 2s infinite;
+        }
+        .score {
+            position: fixed;
+            top: 4rem;
+            right: 2rem;
+            font-size: 2rem;
+            color: var(--primary-color);
+            text-shadow: 0 0 10px var(--primary-color);
+            animation: pulse 2s infinite;
+        }
+
+        .svg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .svg-container {
+            max-width: 80%;
+            max-height: 80%;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .warning {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff0000;
+            color: #ff0000;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.4rem;
+            animation: warningPulse 2s infinite;
+        }
+
+        @keyframes warningPulse {
+            0%, 100% { background: rgba(255, 0, 0, 0.1); }
+            50% { background: rgba(255, 0, 0, 0.2); }
+        }
+
+        @media (max-width: 768px) {
+    /* Adjust container margin for smaller screens */
+    .container {
+        margin: 1rem auto;
+        padding: 0 1rem;
+    }
+
+    /* Adjust title font size and letter spacing for smaller screens */
+    h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        letter-spacing: 0.1em;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Move lives and score below the title */
+    .lives, .score {
+        position: static; /* Remove fixed positioning */
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        text-align: center; /* Center-align for better readability */
+    }
+
+    /* Reduce chat height for smaller screens */
+    .chat {
+        height: 50vh;
+        padding: 1rem;
+    }
+
+    /* Adjust message font size and padding for readability */
+    .message {
+        font-size: 1.2rem;
+        padding: 0.8rem;
+    }
+
+    /* Make input box and button stack for small screens */
+    .input-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .input-box {
+        font-size: 1.2rem;
+        padding: 0.6rem 1rem;
+    }
+
+    .submit-btn {
+        font-size: 1.2rem;
+        padding: 0.6rem;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further reduce padding and font size for very small screens */
+    .chat {
+        height: 40vh;
+        padding: 0.8rem;
+    }
+
+    .message {
+        font-size: 1rem;
+        padding: 0.6rem;
+    }
+
+    .input-box {
+        font-size: 1rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    .submit-btn {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+
+    /* Move lives and score to center-align for smaller screens */
+    .lives, .score {
+        position: static;
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        text-align: center;
+    }
+}
+
+/* Default styling for larger screens */
+.responsive-image {
+        max-width: 300px;
+        height: 300px;
+        margin-bottom: 10px;
+    }
+
+    /* Styling for smaller screens (e.g., mobile devices) */
+    @media (max-width: 768px) {
+        .responsive-image {
+            max-width: 200px;
+            height: 200px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    <div class="container">
+        <div class="title-container">
+            <h1>Digital Void: Escape Protocol</h1>
+        </div>
+        <div class="lives" id="lives">Lives: 3</div>
+        <div class="score" id="scoreDisplay">Score: 0</div>
+        <div class="chatbox">
+            <div id="chat" class="chat">
+                <div class="message bot-message">{{ initial_puzzle }}</div>
+            </div>
+            <div class="input-container">
+                <input type="text" id="userInput" class="input-box" placeholder="Enter your command..." autocomplete="off">
+                <button onclick="sendMessage()" class="submit-btn">Execute</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+   let lives = 3;
+let interactiveElements = [];
+let isProcessingMessage = false; // Flag to prevent multiple simultaneous requests
+
+// Fetch elements from the backend on page load
+function fetchInteractiveElements() {
+    fetch('/api/fetch-elements/')
+        .then(response => response.json())
+        .then(data => {
+            interactiveElements = data.elements.map(el => el.toLowerCase());
+            console.log("Fetched interactive elements:", interactiveElements);
+        })
+        .catch(error => console.error("Error fetching elements:", error));
+}
+
+// Call the fetch function on page load
+fetchInteractiveElements();
+
+function handleGameReload(message = "Starting a new game...") {
+    const chat = document.getElementById('chat');
+    const reloadMessage = document.createElement('div');
+    reloadMessage.className = "message bot-message";
+    reloadMessage.textContent = message;
+    chat.appendChild(reloadMessage);
     
-
-    def __init__(self):
-        # Load NLP model only once per class
-        load_dotenv()
-        self.session_id = None
-        self.user_solved_elements = {}
-        self.element_images = {}
-
-        if PuzzleLogic._nlp is None:
-            PuzzleLogic._nlp = spacy.load("en_core_web_md")
-        self.nlp = PuzzleLogic._nlp
-
-        self.hf_api_token = os.getenv("HF_API_TOKEN")
-        if not self.hf_api_token:
-            logging.error("HF_API_TOKEN is not set in the environment.")
-        # Optimize data loading with prefetching
-        self.load_data_optimized()
-        
-        # Reset game state
-        self.reset_game_state()
-        self.score = 0
-        self.hints_used = 0
-
-        
-    def set_session(self, session_id):
-        """Set the current user session ID"""
-        self.session_id = session_id
-        # Load or create user session
-        try:
-            session, created = UserGameSession.objects.get_or_create(
-                session_id=session_id,
-                defaults={
-                    'solved_elements': {},
-                    'score': 0,
-                    'lives': 3
-                }
-            )
-            self.user_solved_elements = session.solved_elements
-            self.score = session.score
-            self.lives = session.lives
-            self.current_theme = session.current_theme
-        except Exception as e:
-            logging.error(f"Error setting session: {e}")
-            self.reset_game_state()
-
-    def is_element_solved(self, theme, element):
-        """Check if element is solved for current user"""
-        theme_key = self.normalize_string(theme)
-        element_key = self.normalize_string(element)
-        return self.user_solved_elements.get(theme_key, {}).get(element_key, False)
-
-    def mark_element_solved(self, theme, element):
-        """Mark element as solved for current user"""
-        theme_key = self.normalize_string(theme)
-        element_key = self.normalize_string(element)
-        
-        if theme_key not in self.user_solved_elements:
-            self.user_solved_elements[theme_key] = {}
-        
-        self.user_solved_elements[theme_key][element_key] = True
-        
-        # Update database
-        try:
-            UserGameSession.objects.filter(session_id=self.session_id).update(
-                solved_elements=self.user_solved_elements,
-                last_active=timezone.now()
-            )
-        except Exception as e:
-            logging.error(f"Error updating session: {e}")
-
-    def reset_game_state(self):
-        self.current_room_index = 0
-        self.current_theme = None
-        self.current_element = None
-        self.last_suggestion = None
-        self.room_hint_requests = {}
-        self.game_over = False
-        self.hint_request_time = {}
-        self.score = 0
-        self.time_taken = 0
-        self.start_time = time.time()
-        self.game_started = False
-        self.lives = 3
-        self.score = 0
-        self.hints_used = 0
-        if self.session_id:
-            UserGameSession.objects.filter(session_id=self.session_id).update(
-                solved_elements={},
-                score=0,
-                lives=3,
-                current_theme=None
-            )
-            self.user_solved_elements = {}
-
-    def normalize_string(self, text):
-        return unicodedata.normalize('NFKD', text.lower()).strip() if text else text
-
-    def load_data_optimized(self):
-        # Use select_related and prefetch_related to reduce database queries
-        rooms = Room.objects.prefetch_related(
-            Prefetch('elements', 
-                queryset=Element.objects.prefetch_related('answers')
-            )
-        )
-
-        self.themes = {
-            self.normalize_string(room.theme.name): room.theme 
-            for room in rooms
-        }
-
-        self.rooms = {
-            self.normalize_string(room.theme.name): {
-                "description": room.description,
-                "elements": {
-                    self.normalize_string(element.name): {
-                        "puzzle": element.puzzle,
-                        "hint": element.hint,
-                        "answers": [answer.answer for answer in element.answers.all()],
-                        "solved": element.solved
-                    } for element in room.elements.all()
-                },
-                "room_name": room.name
-            } for room in rooms
-        }
-        self.room_order = list(self.rooms.keys())
-
-    def start_game(self):
-        self.game_started = True
-        self.start_time = time.time()
-        self.reset_solved_elements_in_database()
-        
-        # Return two separate messages
-        welcome_message = (
-            "Welcome to the Escape Room Game! 🏰"
-            "You will need to solve puzzles and riddles to progress through different rooms. "
-            "Each room has its own challenge. Are you ready to begin your adventure? "
-            "Type 'next' to see the available themes or 'exit' to quit."
-        )
-        
-        scoring_rules = (
-            "🎯 Scoring Rules:"
-            "• For every correct answer: +10 points"
-            "• For every hint used: -5 points"
-            "Solve puzzles strategically and minimize hint usage!"
-        )
-        
-        return [welcome_message, scoring_rules]
-
-    def reset_solved_elements_in_database(self):
-        # Bulk update is much faster than individual saves
-        Element.objects.update(solved=False)
-
-    def show_themes(self):
-        themes_list = "\n\n".join([f"{i+1}. 🌟 **{theme}**" for i, theme in enumerate(self.themes.keys())])
-        return (
-            "Choose a theme to start your adventure:\n\n"
-            f"{themes_list}\n\n"
-            "Type the number of your choice to begin or 'exit' to quit.\n"
-        )
-
-
-
-
-    def select_theme(self, user_input):
-        try:
-            choice = int(user_input) - 1
-            theme_name = list(self.themes.keys())[choice]
-            self.current_theme = theme_name
-            self.lives = 3  # Reset lives when selecting a new theme
-            return self.describe_room() + f"\n\n🌟 Lives remaining: {self.lives}"
-        except (ValueError, IndexError):
-            return "Invalid selection. Please choose a valid theme number."
-
-    def describe_room(self):
-        normalized_theme = self.normalize_string(self.current_theme)
-        current_room = self.rooms.get(normalized_theme)
+    chat.scrollTop = chat.scrollHeight;
     
-        if current_room:
-            elements = [f"🔍 **{element}**" for element in current_room['elements'].keys()]
-            return (
-                f"{current_room['description']}\n\n"
-                "Interact with: \n"
-                f"{', '.join(sorted(elements))}.\n"
-                "Type the name of an element to interact with it or 'exit' to quit."
-            )
-        else:
-            return f"Error: Room for theme '{normalized_theme}' not found."
+    setTimeout(() => {
+        window.location.reload(true);
+    }, 1000);
+}
 
-
-    # def interact_with_element(self, user_input):
-    #     normalized_input = self.normalize_string(user_input)
-    #     current_room_key = self.normalize_string(self.current_theme)
-    #     current_room = self.rooms.get(current_room_key, {})
-        
-    #     normalized_elements = {self.normalize_string(k): k for k in current_room.get('elements', {}).keys()}
-
-    #     if normalized_input in normalized_elements:
-    #         original_element = normalized_elements[normalized_input]
-    #         element_data = current_room['elements'][original_element]
-            
-    #         if element_data['solved']:
-    #             return f"The puzzle for the {original_element} is already solved. Please choose another element to interact with."
-            
-    #         self.current_element = original_element
-    #         return f"Your puzzle for the {original_element} is: {element_data['puzzle']}"
-    #     else:
-    #         return "Invalid element. Please type the name of an available element or ask for a hint."
-
-    def check_element_answer(self, user_input):
-        try:
-            if not self.session_id:
-                return False, "Session not initialized"
-            current_room_key = self.normalize_string(self.current_theme)
-            current_room = self.rooms.get(current_room_key, {})
-            
-            # Validate current element exists
-            if not self.current_element or self.current_element not in current_room.get('elements', {}):
-                return False, "Invalid element. Please choose an available element."
-
-            element_data = current_room['elements'][self.current_element]
-
-            processed_user_input = self.preprocess_input(user_input)
-            for correct in element_data.get('answers', []):
-                processed_correct_answer = self.preprocess_input(correct)
-                if self.is_similar_answer(processed_correct_answer, processed_user_input):
-                    # Mark element as solved only if not already solved
-                    self.mark_element_solved(current_room_key, self.current_element)
-                    self.score += 10
-
-                    UserGameSession.objects.filter(session_id=self.session_id).update(
-                        solved_elements=self.user_solved_elements,
-                        score=self.score
-                    )
-
-                    # Check remaining puzzles for this user's session
-                    remaining = sum(
-                        1 for elm in current_room['elements'].keys()
-                        if not self.is_element_solved(current_room_key, elm)
-                    )
-                    
-                    if remaining == 0:
-                        return True, f"🎉 Congratulations! Room completed! Score: {self.score} points. Type 'next' for a new theme."
-                    
-                    unsolved = [
-                        element for element in current_room['elements'].keys()
-                        if not self.is_element_solved(current_room_key, element)
-                    ]
-                    element_list = ", ".join(f"🔍 **{elem}**" for elem in unsolved)
-                    
-                    return True, f"🎉 Correct! {remaining} more to solve. Score: {self.score}.\n\nRemaining: {element_list}"
-            
-            self.lives -= 1
-            # Update lives in session
-            UserGameSession.objects.filter(session_id=self.session_id).update(lives=self.lives)
-            
-            if self.lives <= 0:
-                self.reset_game_state()
-                return False, "❌ Out of lives! Game restarted."
-            
-            return False, f"Incorrect answer. Lives remaining: {self.lives}. Type 'hint' for help."
-            
-        except Exception as e:
-            logging.error(f"Error in check_element_answer: {e}")
-            return False, "An error occurred. Please try again."
-                
-
-    def preprocess_input(self, text):
-        """
-        More robust preprocessing that handles variations of input
-        """
-        if not text:
-            return ""
-        
-        # Normalize and lowercase
-        normalized_text = self.normalize_string(text)
-        
-        # Use NLP for lemmatization and stop word handling
-        doc = self.nlp(normalized_text)
-        
-        # Keep meaningful tokens, including some stop words that might be crucial
-        processed_tokens = [
-            token.lemma_ for token in doc 
-            if not token.is_stop or token.lemma_ in ["is", "am", "are", "be", "was", "were", "a", "an", "the"]
-        ]
-        
-        return " ".join(processed_tokens)
-
-    def is_similar_answer(self, correct_answer, user_input):
-        """
-        More precise answer matching with whole word requirements
-        """
-        # Exact match first
-        if correct_answer.lower() == user_input.lower():
-            return True
-        
-        # Split inputs into words
-        correct_words = set(correct_answer.lower().split())
-        input_words = set(user_input.lower().split())
-        
-        # Check if the correct answer is a subset of input words
-        if correct_words.issubset(input_words):
-            return True
-        
-        # Fuzzy ratio checking with whole word consideration
-        fuzz_score = fuzz.token_sort_ratio(correct_answer.lower(), user_input.lower())
-        
-        # More strict scoring
-        return fuzz_score > 90  # Increased from previous threshold
-
-    def restart_game(self):
-        self.reset_game_state()
-        self.reset_solved_elements_in_database()
-
-    def play_game(self, user_input):
-        if self.game_over:
-            if user_input.lower() == 'next':
-                self.restart_game()
-                return True, "Choose a theme to continue your adventure."  # Single, clear message
-            elif user_input.lower() == 'exit':
-                return False, "Exiting the game. Thank you for playing!"
-            else:
-                return False, "Game over. Type 'next' to start a new game or 'exit' to quit."
-                
-        try:
-            valid_input, error_message = self.handle_non_alphanumeric_input(user_input)
-            if not valid_input:
-                return False, error_message
-
-            if not self.game_started:
-                if user_input.lower() == 'start':
-                    return True, self.start_game()
-                elif user_input.lower() == 'exit':
-                    self.game_over = True
-                    return False, "Exiting the game. Thank you for playing!"
-                else:
-                    return False, "Invalid input. Type 'start' to begin or 'exit' to quit."
-            elif self.current_theme is None:
-                if user_input.lower() == 'next':
-                    return True, self.show_themes()
-                elif user_input.lower() == 'exit':
-                    self.game_over = True
-                    return False, "Exiting the game. Thank you for playing!"
-                else:
-                    return True, self.select_theme(user_input)
-            elif self.current_element is None:
-                if user_input.lower() == 'exit':
-                    self.game_over = True
-                    return False, "Exiting the game. Thank you for playing!"
-                elif user_input.lower() == 'next' and self.game_over:
-                    self.restart_game()
-                    return True, "Page will reload to start a new game."
-                
-                return True, self.interact_with_element(user_input)
-            
-            else:
-                if "hint" in user_input.lower():
-                    return True, self.provide_hint()
-                if user_input.lower() == 'exit':
-                    self.game_over = True
-                    return False, "Exiting the game. Thank you for playing!"
-
-                correct, response = self.check_element_answer(user_input)
-                if correct:
-                    self.current_element = None
-                    if "Congratulations! You've successfully cracked the room" in response:
-                        self.game_over = True
-                        return True, response
-                    return True, response
-                else:
-                    return False, response
-                
-        
-        except Exception as e:
-            logging.error(f"Game error: {e}")
-            logging.error(traceback.format_exc())
-            return False, f"An unexpected error occurred: {str(e)}"
-
-    def provide_hint(self):
-        current_room_key = self.normalize_string(self.current_theme)
-        current_room = self.rooms.get(current_room_key, {})
-        
-        if self.current_element and self.current_element in current_room.get('elements', {}):
-            self.score -= 5
-            self.hints_used += 1
-            hint = current_room['elements'][self.current_element]['hint']
-            return f"Hint for the {self.current_element}: {hint}"
-        return "There is no active puzzle to provide a hint for."
-
-    def handle_non_alphanumeric_input(self, user_input):
-        if not any(char.isalnum() for char in user_input):
-            return False, "Hmm, that doesn't seem like a valid answer. Please try again with a word or phrase!"
-        return True, None
-
-    def to_dict(self):
-        return {
-            "current_room_index": self.current_room_index,
-            "current_theme": self.normalize_string(self.current_theme),
-            "current_element": self.normalize_string(self.current_element),
-            "last_suggestion": self.last_suggestion,
-            "room_hint_requests": self.room_hint_requests,
-            "game_over": self.game_over,
-            "hint_request_time": self.hint_request_time,
-            "score": self.score,
-            "time_taken": self.time_taken,
-            "start_time": self.start_time,
-            "game_started": self.game_started,
-            "lives": self.lives
-        }
-
-    def from_dict(self, data):
-        self.current_room_index = data.get("current_room_index", 0)
-        self.current_theme = self.normalize_string(data.get("current_theme", None))
-        self.current_element = self.normalize_string(data.get("current_element", None))
-        self.last_suggestion = data.get("last_suggestion", None)
-        self.room_hint_requests = data.get("room_hint_requests", {})
-        self.game_over = data.get("game_over", False)
-        self.hint_request_time = data.get("hint_request_time", {})
-        self.score = data.get("score", 0)
-        self.time_taken = data.get("time_taken", 0)
-        self.start_time = data.get("start_time", time.time())
-        self.game_started = data.get("game_started", False)
-        self.lives = data.get("lives", 3)
+async function sendMessage() {
+    if (isProcessingMessage) return; // Prevent multiple simultaneous requests
     
-    import requests
-    import base64
-    import logging
-    import io
-    from PIL import Image
+    const userInputField = document.getElementById('userInput');
+    const userInput = userInputField.value.trim();
+    if (!userInput) return;
 
+     userInputField.value = ''
+    isProcessingMessage = true;
+    const chat = document.getElementById('chat');
 
+    // Check for game completion
+    const messages = chat.getElementsByClassName('message');
+    const lastBotMessage = Array.from(messages)
+        .reverse()
+        .find(msg => msg.classList.contains('bot-message'));
+    
+    if (lastBotMessage && 
+        lastBotMessage.textContent.includes('Congratulations! Room completed!') && 
+        userInput.trim() !== '') {
+        handleGameReload("Starting next room...");
+        isProcessingMessage = false;
+        return;
+    }
 
-    def generate_element_image(self, element_name, puzzle_text):
-        API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
-        headers = {
-            "Authorization": f"Bearer {self.hf_api_token}",
-            "Content-Type": "application/json"
+    // Add user message
+    const userMessage = document.createElement('div');
+    userMessage.className = "message user-message";
+    userMessage.textContent = "You: " + userInput;
+    chat.appendChild(userMessage);
+    scrollToBottom(chat);
+
+    const mightBeElementInteraction = checkElementInteraction(userInput, interactiveElements);
+
+    // Add loading message for element interactions
+    let loadingMessage = null;
+    if (mightBeElementInteraction) {
+        loadingMessage = document.createElement('div');
+        loadingMessage.className = "message bot-message";
+        loadingMessage.innerHTML = `
+            <div>Bot: Analyzing element and generating visualization...</div>
+            <div style="text-align: center; margin-top: 10px;">
+                <div class="loading-spinner"></div>
+            </div>
+        `;
+        chat.appendChild(loadingMessage);
+        scrollToBottom(chat);
+
+    }
+
+    try {
+        const response = await fetch('/chatbot/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: new URLSearchParams({ user_input: userInput })
+        });
+
+        const data = await response.json();
+
+        // Handle loading state
+        if (loadingMessage) {
+            chat.removeChild(loadingMessage);
         }
 
-        # Create a prompt that combines the element name and puzzle
-        max_retries = 3
-        retry_count = 0
-        
-        while retry_count < max_retries:
-            try:
-                prompt = f"Mysterious {element_name} related to the puzzle: {puzzle_text}. Dark, cyberpunk detective style, with dramatic lighting and intrigue"
-                
-                response = requests.post(
-                    API_URL, 
-                    headers=headers, 
-                    json={
-                        "inputs": prompt,
-                        "parameters": {
-                            "negative_prompt": "blurry, low quality, bad composition",
-                            "num_inference_steps": 30,
-                            "guidance_scale": 7.5
-                        }
-                    },
-                    timeout=30  # Add timeout
-                )
+        if (data.error) {
+            const errorMessage = document.createElement('div');
+            errorMessage.className = "message bot-message";
+            errorMessage.textContent = "Bot: " + data.response;
+            chat.appendChild(errorMessage);
 
-                if response.status_code == 200:
-                    image = Image.open(io.BytesIO(response.content))
-                    image.thumbnail((400, 400))
-                    buffered = io.BytesIO()
-                    image.save(buffered, format="PNG")
-                    return base64.b64encode(buffered.getvalue()).decode('utf-8')
-                
-                elif response.status_code == 503:  # Model loading
-                    time.sleep(2)  # Wait before retry
-                    retry_count += 1
-                    continue
-                    
-                else:
-                    logging.error(f"Image generation error: {response.text}")
-                    retry_count += 1
-                    
-            except Exception as e:
-                logging.error(f"Image generation exception: {e}")
-                retry_count += 1
-                time.sleep(1)
-                
-        return None  # Return None if all r
+            if (data.retry) {
+                setTimeout(() => {
+                    const retryMessage = document.createElement('div');
+                    retryMessage.className = "message bot-message";
+                   
+                    chat.appendChild(retryMessage);
+                }, 1000);
+            }
+        } else {
+            // Remove loading message if it exists
+           
 
-    def interact_with_element(self, user_input):
-        normalized_input = self.normalize_string(user_input)
-        current_room_key = self.normalize_string(self.current_theme)
-        current_room = self.rooms.get(current_room_key, {})
-        
-        normalized_elements = {self.normalize_string(k): k for k in current_room.get('elements', {}).keys()}
-        
-        # Extract potential element names from input
-        input_words = set(normalized_input.split())
-        element_words = set(normalized_elements.keys())
-        
-        # Find intersecting words
-        matched_elements = input_words.intersection(element_words)
-        
-        # If no direct match, try fuzzy matching
-        if not matched_elements:
-            best_match = None
-            best_score = 0
-            for element in normalized_elements:
-                score = fuzz.partial_ratio(normalized_input, element)
-                if score > best_score and score > 70:
-                    best_match = element
-                    best_score = score
+            // Create and add bot response
+            const botMessage = document.createElement('div');
+            botMessage.className = "message bot-message";
+
+            // Handle image if present
+            if (data.image) {
+                const imageContainer = document.createElement('div');
+                imageContainer.style.position = 'relative';
                 
-            if best_match:
-                matched_elements = {best_match}
-        
-        # Process the matched element
-        if matched_elements:
-            original_element = normalized_elements[list(matched_elements)[0]]
-            
-            # Check if element is already solved using the session data
-            if self.is_element_solved(current_room_key, original_element):
-                return {
-                    "text": f"The {original_element} has already been solved. Try another element!",
-                    "error": True
-                }
+                const imageElement = document.createElement('img');
+                imageElement.src = `data:image/png;base64,${data.image}`;
+                imageElement.className = "responsive-image";
                 
-            element_data = current_room['elements'][original_element]
-            self.current_element = original_element
-            puzzle_text = element_data['puzzle']
-            
-            # Generate image for the element
-            element_key = f"{current_room_key}_{original_element}"
-            
-            if element_key not in self.element_images:
-                # Generate and cache the image
-                generated_image = self.generate_element_image(original_element, puzzle_text)
-                if generated_image:
-                    self.element_images[element_key] = generated_image
-            
-            # Use cached image if available
-            image = self.element_images.get(element_key)
-            
-            if image:
-                return {
-                    "text": f"Your puzzle for the {original_element} is: {puzzle_text}",
-                    "image": image,
-                    "success": True
+                // Add loading placeholder
+                const loadingPlaceholder = document.createElement('div');
+                loadingPlaceholder.className = "image-loading-placeholder";
+                loadingPlaceholder.textContent = "Loading image...";
+                
+                imageContainer.appendChild(loadingPlaceholder);
+                imageContainer.appendChild(imageElement);
+                
+                // Handle image loading
+                imageElement.onload = () => {
+                    loadingPlaceholder.style.display = 'none';
+                    imageElement.style.display = 'block';
+                    scrollToBottom(chat);
+
+                };
+                
+                imageElement.onerror = () => {
+                    loadingPlaceholder.textContent = "Failed to load image";
+                    scrollToBottom(chat);
+
+                };
+                
+                botMessage.appendChild(imageContainer);
+            }
+
+            // Add text response
+            const textElement = document.createElement('div');
+            textElement.textContent = "Bot: " + data.response;
+            botMessage.appendChild(textElement);
+
+            chat.appendChild(botMessage);
+            scrollToBottom(chat);
+
+
+            // Update interactive elements
+            if (data.remaining_elements) {
+                interactiveElements = data.remaining_elements.map(el => el.toLowerCase());
+            }
+
+            // Handle game over
+            if (data.reload || data.response.includes("Out of lives!")) {
+                handleGameReload();
+                return;
+            }
+
+            // Update score
+            const scoreRegex = /Score: (\d+)/; // Adjusted to match "Score: <value>"
+            const scoreMatch = data.response.match(scoreRegex);
+
+            if (scoreMatch) {
+                const score = parseInt(scoreMatch[1], 10); // Extract the score
+                document.getElementById('scoreDisplay').textContent = `Score: ${score}`; // Update the score display
+                console.log('Score updated:', score); // Debugging to confirm the score is updated
+            }
+
+            // Update lives
+            const livesMatch = data.response.match(/Lives remaining: (\d+)/);
+            if (livesMatch) {
+                lives = parseInt(livesMatch[1]);
+                document.getElementById('lives').textContent = "Lives: " + lives;
+
+                // Add warning for last life
+                const existingWarning = document.getElementById('last-life-warning');
+                if (lives === 1 && !existingWarning) {
+                    const warningElement = document.createElement('div');
+                    warningElement.id = 'last-life-warning';
+                    warningElement.className = 'warning';
+                    warningElement.textContent = '⚠️ CRITICAL ALERT: FINAL LIFE REMAINING! ONE WRONG MOVE ENDS THE GAME ⚠️';
+                    
+                    const chatbox = document.querySelector('.chatbox');
+                    chatbox.insertBefore(warningElement, chatbox.lastElementChild);
+                    scrollToBottom(chat);
+
                 }
-            else:
-                # If image generation failed
-                return {
-                    "text": f"Image generation failed. Your puzzle for the {original_element} is: {puzzle_text}\nPlease answer the question",
-                    "error": True,
-                    "retry": True
-                }
-        
-        return {
-            "text": "Invalid element. Please type the name of an available element or ask for a hint.",
-            "error": True
+            }
         }
+    } catch (error) {
+        console.error('Error:', error);
+        const errorMessage = document.createElement('div');
+        errorMessage.className = "message bot-message";
+        errorMessage.textContent = "Bot: Connection error. Please try again.";
+        chat.appendChild(errorMessage);
+        scrollToBottom(chat);
+
+    } finally {
+        isProcessingMessage = false;
+        document.getElementById('userInput').value = '';
+    }
+    
+}
+function checkElementInteraction(input, elements) {
+    input = input.toLowerCase().trim();
+    
+    // Common interaction verbs and prepositions to filter out
+    const filterWords = [
+        'inspect', 'check', 'look', 'examine', 'investigate', 'view', 
+        'see', 'interact', 'use', 'at', 'the', 'a', 'an', 'with', 
+        'i', 'want', 'to', 'can', 'you', 'please', 'tell', 'me', 'about'
+    ];
+    
+    // Create variations of input with and without underscores
+    const inputWithoutUnderscores = input.replace(/_/g, ' ');
+    const inputWithUnderscores = input.replace(/\s+/g, '_');
+    
+    // Remove filter words and create a clean version of the input
+    const cleanInput = input.split(' ')
+        .filter(word => !filterWords.includes(word))
+        .join(' ');
+    
+    for (const element of elements) {
+        // Create variations of the element name
+        const elementWithoutUnderscores = element.replace(/_/g, ' ');
+        const elementWithUnderscores = element.replace(/\s+/g, '_');
+        
+        // Check for exact matches with various formats
+        if ([input, inputWithoutUnderscores, inputWithUnderscores].includes(element) ||
+            [input, inputWithoutUnderscores, inputWithUnderscores].includes(elementWithoutUnderscores) ||
+            [input, inputWithoutUnderscores, inputWithUnderscores].includes(elementWithUnderscores)) {
+            return true;
+        }
+        
+        // Check if element appears as a substring in the cleaned input
+        if (cleanInput.includes(elementWithoutUnderscores) || 
+            cleanInput.includes(elementWithUnderscores)) {
+            return true;
+        }
+        
+        // Check if all words of the element appear in the input in any order
+        const elementWords = elementWithoutUnderscores.split(' ');
+        const allPartsPresent = elementWords.every(part => 
+            cleanInput.split(' ').some(word => 
+                word.includes(part) || part.includes(word)
+            )
+        );
+        
+        if (allPartsPresent) {
+            return true;
+        }
+    }
+    
+    return false;
+}
+
+function scrollToBottom(element) {
+    element.scrollTop = element.scrollHeight;
+}
+
+
+function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + '=')) {
+            return decodeURIComponent(cookie.slice(name.length + 1));
+        }
+    }
+    return null;
+}
+
+// Add enter key handler
+document.getElementById('userInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+</script>
+   
+</body>
+</html>
