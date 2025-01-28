@@ -79,15 +79,17 @@ class Answer(models.Model):
     def __str__(self):
         return f"{self.element.name}: {self.answer}"
     
-from django.db import models
-
 class UserGameSession(models.Model):
     session_id = models.CharField(max_length=100, unique=True)
     solved_elements = models.JSONField(default=dict)
+    current_theme = models.CharField(max_length=100, null=True, blank=True)
+    score = models.IntegerField(default=0)
+    lives = models.IntegerField(default=3)
     created_at = models.DateTimeField(auto_now_add=True)
     last_active = models.DateTimeField(auto_now=True)
 
     class Meta:
-        indexes = [
-            models.Index(fields=['session_id']),
-        ]
+        db_table = 'chatbot_usergamesession'
+
+    def __str__(self):
+        return f"Session {self.session_id}"
