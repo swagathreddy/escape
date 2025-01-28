@@ -571,7 +571,7 @@ class PuzzleLogic:
             else:
                 # If image generation failed
                 return {
-                    "text": f"Image generation failed. Your puzzle for the {original_element} is: {puzzle_text}\nPlease try interacting with the element again if you'd like to see the image.",
+                    "text": f"Image generation failed. Your puzzle for the {original_element} is: {puzzle_text}\n.Answer the question",
                     "error": True,
                     "retry": True
                 }
