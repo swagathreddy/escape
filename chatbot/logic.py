@@ -15,6 +15,9 @@ from PIL import Image
 import requests
 import random
 from PIL import Image, ImageDraw, ImageFont
+from dotenv import load_dotenv
+from .models import UserGameSession
+from datetime import timezone
 
 logging.basicConfig(
     level=logging.ERROR,
@@ -28,10 +31,17 @@ class PuzzleLogic:
 
     def __init__(self):
         # Load NLP model only once per class
+        load_dotenv()
+        self.session_id = None
+        self.user_solved_elements = {}
+
         if PuzzleLogic._nlp is None:
             PuzzleLogic._nlp = spacy.load("en_core_web_md")
         self.nlp = PuzzleLogic._nlp
 
+        self.hf_api_token = os.getenv("HF_API_TOKEN")
+        if not self.hf_api_token:
+            logging.error("HF_API_TOKEN is not set in the environment.")
         # Optimize data loading with prefetching
         self.load_data_optimized()
         
@@ -41,6 +51,51 @@ class PuzzleLogic:
         self.hints_used = 0
 
         
+    def set_session(self, session_id):
+        """Set the current user session ID"""
+        self.session_id = session_id
+        # Load or create user session
+        try:
+            session, created = UserGameSession.objects.get_or_create(
+                session_id=session_id,
+                defaults={
+                    'solved_elements': {},
+                    'score': 0,
+                    'lives': 3
+                }
+            )
+            self.user_solved_elements = session.solved_elements
+            self.score = session.score
+            self.lives = session.lives
+            self.current_theme = session.current_theme
+        except Exception as e:
+            logging.error(f"Error setting session: {e}")
+            self.reset_game_state()
+
+    def is_element_solved(self, theme, element):
+        """Check if element is solved for current user"""
+        theme_key = self.normalize_string(theme)
+        element_key = self.normalize_string(element)
+        return self.user_solved_elements.get(theme_key, {}).get(element_key, False)
+
+    def mark_element_solved(self, theme, element):
+        """Mark element as solved for current user"""
+        theme_key = self.normalize_string(theme)
+        element_key = self.normalize_string(element)
+        
+        if theme_key not in self.user_solved_elements:
+            self.user_solved_elements[theme_key] = {}
+        
+        self.user_solved_elements[theme_key][element_key] = True
+        
+        # Update database
+        try:
+            UserGameSession.objects.filter(session_id=self.session_id).update(
+                solved_elements=self.user_solved_elements,
+                last_active=timezone.now()
+            )
+        except Exception as e:
+            logging.error(f"Error updating session: {e}")
 
     def reset_game_state(self):
         self.current_room_index = 0
@@ -57,6 +112,14 @@ class PuzzleLogic:
         self.lives = 3
         self.score = 0
         self.hints_used = 0
+        if self.session_id:
+            UserGameSession.objects.filter(session_id=self.session_id).update(
+                solved_elements={},
+                score=0,
+                lives=3,
+                current_theme=None
+            )
+            self.user_solved_elements = {}
 
     def normalize_string(self, text):
         return unicodedata.normalize('NFKD', text.lower()).strip() if text else text
@@ -174,6 +237,8 @@ class PuzzleLogic:
 
     def check_element_answer(self, user_input):
         try:
+            if not self.session_id:
+                return False, "Session not initialized"
             current_room_key = self.normalize_string(self.current_theme)
             current_room = self.rooms.get(current_room_key, {})
             
@@ -188,51 +253,45 @@ class PuzzleLogic:
                 processed_correct_answer = self.preprocess_input(correct)
                 if self.is_similar_answer(processed_correct_answer, processed_user_input):
                     # Mark element as solved only if not already solved
-                    if not element_data['solved']:
-                        element_data['solved'] = True
-                        self.score += 10
+                    self.mark_element_solved(current_room_key, self.current_element)
+                    self.score += 10
 
-                        try:
-                            element_instance = Element.objects.get(
-                                name=self.current_element, 
-                                room__name=current_room['room_name']
-                            )
-                            element_instance.solved = True
-                            element_instance.save()
-                        except Exception as e:
-                            logging.error(f"Database save error: {e}")
-                            return False, "An error occurred while updating the database."
+                    UserGameSession.objects.filter(session_id=self.session_id).update(
+                        solved_elements=self.user_solved_elements,
+                        score=self.score
+                    )
 
-                    # Check if all elements are solved
-                    remaining = sum(1 for elm in current_room['elements'].values() if not elm['solved'])
+                    # Check remaining puzzles for this user's session
+                    remaining = sum(
+                        1 for elm in current_room['elements'].keys()
+                        if not self.is_element_solved(current_room_key, elm)
+                    )
                     
                     if remaining == 0:
-                        self.reset_solved_elements_in_database()
-                        return True, f"🎉 Congratulations! You've successfully cracked the room and solved all the puzzles! Total score: {self.score} points. Type 'next' to play another theme."
+                        return True, f"🎉 Congratulations! Room completed! Total score: {self.score} points. Type 'next' for a new theme."
                     
-                    # Find unsolved elements
-                    unsolved_elements = [
-                        element for element, data in current_room.get('elements', {}).items() 
-                        if not data['solved']
+                    unsolved = [
+                        element for element in current_room['elements'].keys()
+                        if not self.is_element_solved(current_room_key, element)
                     ]
+                    element_list = ", ".join(f"🔍 **{elem}**" for elem in unsolved)
                     
-                    if unsolved_elements:
-                        element_list = ", ".join(f"🔍 **{elem}**" for elem in unsolved_elements)
-                        return True, f"🎉 That's correct! {remaining} more to solve. Choose another element to interact with. Current score: {self.score}.\n\nRemaining elements to solve: {element_list}"
-
-            # Incorrect answer logic
+                    return True, f"🎉 Correct! {remaining} more to solve. Score: {self.score}.\n\nRemaining: {element_list}"
+            
             self.lives -= 1
+            # Update lives in session
+            UserGameSession.objects.filter(session_id=self.session_id).update(lives=self.lives)
             
             if self.lives <= 0:
-                self.restart_game()
-                return False, "❌ Out of lives! Game restarted. Try again from the beginning."
+                self.reset_game_state()
+                return False, "❌ Out of lives! Game restarted."
             
-            return False, f"Oops! That's not quite right. 😅 Lives remaining: {self.lives}. For hint, type Hint"
-        
+            return False, f"Incorrect answer. Lives remaining: {self.lives}. Type 'hint' for help."
+            
         except Exception as e:
-            logging.error(f"Unexpected error in check_element_answer: {e}")
-            logging.error(traceback.format_exc())
-            return False, "An unexpected error occurred. Please try again."
+            logging.error(f"Error in check_element_answer: {e}")
+            return False, "An error occurred. Please try again."
+                
 
     def preprocess_input(self, text):
         """
@@ -402,7 +461,7 @@ class PuzzleLogic:
     def generate_element_image(self, element_name, puzzle_text):
         API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
         headers = {
-            "Authorization": "Bearer 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",
+            "Authorization": f"Bearer {self.hf_api_token}",
             "Content-Type": "application/json"
         }
 
