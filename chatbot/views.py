@@ -75,6 +75,9 @@ def chatbot_response(request):
                 response_data["response"] = response.get("text", "")
                 if response.get("image"):
                     response_data["image"] = response["image"]
+                if response.get("loading"):
+                    response_data["loading"] = True
+                    response_data["retry_after"] = 2  # Seconds to wait before retry
             else:
                 response_data["response"] = response
         
