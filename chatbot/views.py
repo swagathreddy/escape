@@ -7,7 +7,8 @@ from io import BytesIO
 from PIL import Image
 import requests
 from django.views.decorators.csrf import csrf_exempt
-
+from .models import Element
+import uuid
 # Configure logging
 logging.basicConfig(
     level=logging.ERROR,
@@ -19,6 +20,9 @@ class EscapeRoomView:  # Changed from object to regular class
     def __init__(self, session=None):  # Added default None parameter
         self.puzzle_logic = PuzzleLogic()
         if session:
+            if 'game_session_id' not in session:
+                session['game_session_id'] = str(uuid.uuid4())
+            self.puzzle_logic.set_session(session['game_session_id'])
             state = session.get('puzzle_logic_state', None)
             if state:
                 self.puzzle_logic.from_dict(state)
@@ -35,6 +39,8 @@ class EscapeRoomView:  # Changed from object to regular class
 
 @csrf_exempt
 def index(request):
+    if 'game_session_id' not in request.session:
+        request.session['game_session_id'] = str(uuid.uuid4())
     request.session.flush()
     view = EscapeRoomView(request.session)  # Now this will work
     initial_puzzle = view.get_initial_puzzle()
