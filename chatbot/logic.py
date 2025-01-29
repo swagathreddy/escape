@@ -41,6 +41,7 @@ class PuzzleLogic:
         self.nlp = PuzzleLogic._nlp
 
         self.hf_api_token = os.getenv("HF_API_TOKEN")
+        self.hf_token=os.getenv("HF_TOKEN")
         if not self.hf_api_token:
             logging.error("HF_API_TOKEN is not set in the environment.")
         # Optimize data loading with prefetching
@@ -196,10 +197,36 @@ class PuzzleLogic:
             choice = int(user_input) - 1
             theme_name = list(self.themes.keys())[choice]
             self.current_theme = theme_name
-            self.lives = 3  # Reset lives when selecting a new theme
-            return self.describe_room() + f"\n\n🌟 Lives remaining: {self.lives}"
+            self.lives = 3
+            
+            # Generate room image
+            room_image = self.generate_room_image(theme_name)
+            
+            # Get room description
+            current_room = self.rooms.get(self.normalize_string(theme_name))
+            description = current_room['description'] if current_room else "Room not found"
+            
+            elements = current_room['elements'].keys() if current_room else []
+            elements_text = [f"🔍 **{element}**" for element in sorted(elements)]
+            
+            response_text = (
+                f"{description}\n\n"
+                f"Interact with: {', '.join(elements_text)}.\n"
+                "Type the name of an element to interact with it or 'exit' to quit."
+                f"\n\n🌟 Lives remaining: {self.lives}"
+            )
+            
+            return {
+                "text": response_text,
+                "image": room_image,
+                
+            }
+            
         except (ValueError, IndexError):
-            return "Invalid selection. Please choose a valid theme number."
+            return {
+                "text": "Invalid selection. Please choose a valid theme number.",
+                "error": True
+            }
 
     def describe_room(self):
         normalized_theme = self.normalize_string(self.current_theme)
@@ -458,7 +485,69 @@ class PuzzleLogic:
     from PIL import Image
 
 
-
+    def generate_room_image(self, theme_name):
+        """
+        Generate an image of the room based on the theme description
+        """
+        if not self.hf_api_token:
+            return None
+            
+        API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
+        headers = {
+            "Authorization": f"Bearer {self.hf_token}",
+            "Content-Type": "application/json"
+        }
+        
+        current_room = self.rooms.get(self.normalize_string(theme_name))
+        if not current_room:
+            return None
+            
+        # Create a detailed prompt for the room
+        room_description = current_room['description']
+        prompt = f"A detailed, atmospheric view of: {room_description}. Cinematic lighting, detailed interior, mystery atmosphere"
+        
+        max_retries = 3
+        retry_count = 0
+        
+        while retry_count < max_retries:
+            try:
+                response = requests.post(
+                    API_URL,
+                    headers=headers,
+                    json={
+                        "inputs": prompt,
+                        "parameters": {
+                            "negative_prompt": "blurry, low quality, bad composition",
+                            "num_inference_steps": 30,
+                            "guidance_scale": 7.5
+                        }
+                    },
+                    timeout=30
+                )
+                
+                if response.status_code == 200:
+                    image = Image.open(io.BytesIO(response.content))
+                    image.thumbnail((800, 600))  # Larger size for room image
+                    buffered = io.BytesIO()
+                    image.save(buffered, format="PNG")
+                    return base64.b64encode(buffered.getvalue()).decode('utf-8')
+                    
+                elif response.status_code == 503:
+                    time.sleep(2)
+                    retry_count += 1
+                    continue
+                    
+                else:
+                    logging.error(f"Room image generation error: {response.text}")
+                    retry_count += 1
+                    
+            except Exception as e:
+                logging.error(f"Room image generation exception: {e}")
+                retry_count += 1
+                time.sleep(1)
+                
+        return None
+    
     def generate_element_image(self, element_name, puzzle_text):
         API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
         headers = {
