@@ -28,6 +28,35 @@
             position: relative;
             overflow-x: hidden;
         }
+        .room-image-container {
+    margin: 1rem 0;
+    width: 100%;
+    max-width: 800px;
+    border: 2px solid var(--secondary-color);
+    box-shadow: 0 0 20px rgba(5, 217, 232, 0.2);
+}
+
+.room-image {
+    width: 100%;
+    height: auto;
+    display: none;  /* Initially hidden until loaded */
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.room-image-container .image-loading-placeholder {
+    padding: 2rem;
+    text-align: center;
+    color: var(--secondary-color);
+    background: rgba(5, 217, 232, 0.1);
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .room-image-container {
+        max-width: 100%;
+    }
+}
 
         body::before {
             content: '';
@@ -493,10 +522,10 @@ async function sendMessage() {
     scrollToBottom(chat);
 
     const mightBeElementInteraction = checkElementInteraction(userInput, interactiveElements);
-
+    const isThemeSelection = /^\d+$/.test(userInput.trim());
     // Add loading message for element interactions
     let loadingMessage = null;
-    if (mightBeElementInteraction) {
+    if (mightBeElementInteraction || isThemeSelection) {
         loadingMessage = document.createElement('div');
         loadingMessage.className = "message bot-message";
         loadingMessage.innerHTML = `
@@ -549,7 +578,8 @@ async function sendMessage() {
             const botMessage = document.createElement('div');
             botMessage.className = "message bot-message";
 
-            // Handle image if present
+            // Handle image if present\
+
             if (data.image) {
                 const imageContainer = document.createElement('div');
                 imageContainer.style.position = 'relative';
@@ -649,6 +679,11 @@ async function sendMessage() {
     
 }
 function checkElementInteraction(input, elements) {
+
+    if (/^\d+$/.test(input.trim())) {
+        return true; // Treat numeric inputs as potential theme selections
+    }
+
     input = input.toLowerCase().trim();
     
     // Common interaction verbs and prepositions to filter out
