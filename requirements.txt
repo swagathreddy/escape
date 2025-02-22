@@ -1,25 +1,18 @@
-﻿
-asgiref==3.8.1
-asttokens==2.4.1
-async-lru==2.0.4
+
+
 fuzzywuzzy==0.18.0
-python-Levenshtein==0.23.0
+
 
 psycopg2-binary==2.9.9
 
 Django==5.1.4
-django-cors-headers==4.6.0
-django-modeltranslation==0.19.11
+
 en_core_web_md@ https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.8.0/en_core_web_md-3.8.0-py3-none-any.whl#sha256=5e6329fe3fecedb1d1a02c3ea2172ee0fede6cea6e4aefb6a02d832dba78a310
-gunicorn==21.2.0
+
 huggingface-hub==0.27.1
 
-json5==0.9.25
-jsonpointer==3.0.0
-jsonschema==4.23.0
-jsonschema-specifications==2023.12.1
 
-openai==1.58.1
+
 python-dotenv
 pillow==10.4.0
 
