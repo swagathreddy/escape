@@ -25,15 +25,15 @@ SECRET_KEY = 'django-insecure-sx4+=h(b_#wk@_3x4ngqn4b(0$=wnno_ttonqo82+v9ks(3vtp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['web-production-16fb0.up.railway.app']
+ALLOWED_HOSTS = ['escaperoom.up.railway.app']
 
 CORS_ALLOWED_ORIGINS = [
-    'https://web-production-16fb0.up.railway.app/',
+    'https://escaperoom.up.railway.app/',
 ]
 
 # Also consider adding:
 CSRF_TRUSTED_ORIGINS = [
-    'https://web-production-16fb0.up.railway.app/',
+    'https://escaperoom.up.railway.app/',
 ]
 
 # Application definition
