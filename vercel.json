@@ -4,11 +4,11 @@
       {
         "src": "escaperoom/wsgi.py",
         "use": "@vercel/python",
-        "config": {
-          "maxLambdaSize": "15mb",
-          "runtime": "python3.9",
-          "buildCommand": "./build_files.sh"
-        }
+       "config": {
+  "maxLambdaSize": "15mb",
+  "runtime": "python3.12",
+  "buildCommand": "./build_files.sh"
+}
       }
     ],
     "routes": [
