@@ -1,1 +1,1 @@
-web: gunicorn escaperoom.wsgi --log-file -
+web: gunicorn escaperoom.wsgi --log-file - --bind 0.0.0.0:$PORT
