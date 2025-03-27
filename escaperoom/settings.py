@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['escaperoom.up.railway.app','caboose.proxy.rlwy.net:46488','esc
 CORS_ALLOWED_ORIGINS = [
     'https://escaperoom.up.railway.app/',
     'http://caboose.proxy.rlwy.net:46488/',
-    'https://escape-production.up.railway.app/'.
+    'https://escape-production.up.railway.app/',
 ]
 
 # Also consider adding:
