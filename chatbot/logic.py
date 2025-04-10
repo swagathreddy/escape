@@ -551,7 +551,7 @@ class PuzzleLogic:
     def generate_element_image(self, element_name, puzzle_text):
         API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
         headers = {
-            "Authorization": f"Bearer {self.hf_api_token}",
+            "Authorization": f"Bearer {self.hf_token}",
             "Content-Type": "application/json"
         }
 
